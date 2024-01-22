@@ -13,11 +13,18 @@ export function Login() {
   }, []);
 
   const handleLogin = useCallback(() => {
+    console.log(data);
     setErrors({});
     // const validationErrors = validate(loginSchema, data);
-  }, []);
+  }, [data]);
 
   return (
-    <LoginForm handleLogin={handleLogin} handleChange={handleChange} data={data} errors={errors} />
+    <LoginForm
+      handleLogin={handleLogin}
+      handleChange={handleChange}
+      data={data}
+      errors={errors}
+      isLoading={false}
+    />
   );
 }

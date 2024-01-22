@@ -9,12 +9,16 @@ export const getMenuItems = (routes, routeKey) => {
 
   const { path, children, label } = routes[routeKey];
 
+  const childrenRoutes =
+    children &&
+    Object.keys(children)
+      .map((childrenRouteKey) => getMenuItems(children, childrenRouteKey))
+      .filter(Boolean);
+
   return {
     key: path,
     label: label,
     icon: MENU_ICONS_BY_ROUTE[path],
-    children:
-      children &&
-      Object.keys(children).map((childrenRouteKey) => getMenuItems(children, childrenRouteKey)),
+    children: childrenRoutes?.length ? childrenRoutes : null,
   };
 };

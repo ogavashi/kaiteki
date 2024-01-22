@@ -9,7 +9,10 @@ export const CustomMenu = memo(() => {
   const navigate = useNavigate();
 
   const menuItems = useMemo(
-    () => Object.keys(ROUTES).map((route) => getMenuItems(ROUTES, route)),
+    () =>
+      Object.keys(ROUTES)
+        .map((route) => getMenuItems(ROUTES, route))
+        .filter(Boolean),
     []
   );
 
