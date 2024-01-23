@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { AuthLayout, MainLayout } from '@components';
-import { Login, Test } from '@pages';
+import { CreateAct, Login, Test } from '@pages';
 
 export const router = createBrowserRouter([
   {
@@ -14,10 +14,11 @@ export const router = createBrowserRouter([
       },
       {
         path: ROUTES.ACTS.path,
-        children: [
-          { path: ROUTES.ACTS.children.ALL.path, element: <Test /> },
-          { path: ROUTES.ACTS.children.NEW_ACT.path, element: <>New act</> },
-        ],
+        element: <Test />,
+      },
+      {
+        path: ROUTES.ACTS.children.NEW_ACT.path,
+        element: <CreateAct />,
       },
     ],
   },

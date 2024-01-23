@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Menu } from 'antd';
-import { ROUTES, getMenuItems, getOpenKeys } from '@features/navigation';
+import { ROUTES, getMenuItems, getOpenKeys, getSelectedKey } from '@features/navigation';
 import { memo, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -22,12 +22,14 @@ export const CustomMenu = memo(() => {
     navigate(key, { replace: true });
   }, []);
 
+  const selectedKey = useMemo(() => getSelectedKey(ROUTES, pathname), [pathname]);
+
   return (
     <Menu
       onClick={handleNavigate}
       theme='dark'
       mode='inline'
-      selectedKeys={[pathname]}
+      selectedKeys={[selectedKey]}
       defaultOpenKeys={openedKeys}
       items={menuItems}
     />

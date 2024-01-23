@@ -7,16 +7,10 @@ export const ROUTES = {
     visible: true,
     label: 'Акти',
     children: {
-      ALL: {
-        path: '/acts/all',
-        protected: true,
-        visible: true,
-        label: 'Всі',
-      },
       NEW_ACT: {
         path: '/acts/create',
         protected: true,
-        visible: true,
+        visible: false,
         label: 'Створити',
       },
     },

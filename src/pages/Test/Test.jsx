@@ -8,11 +8,11 @@ export function Test() {
 
   const handleNew = useCallback(() => {
     navigate(ROUTES.ACTS.children.NEW_ACT.path);
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
-      <Button onClick={handleNew}>New</Button>
+      <Button onClick={handleNew}>Створити</Button>
     </div>
   );
 }
