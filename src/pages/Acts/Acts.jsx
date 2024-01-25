@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
-import { Table } from '@components';
 import { PAGE_KEYS } from '@constants';
 import { ApiService } from '@services';
 import { tableSchema } from '@features/acts';
+import { Table } from '@features/table';
 
 export function Acts() {
   const api = useMemo(() => ApiService[PAGE_KEYS.ACTS].read, []);
