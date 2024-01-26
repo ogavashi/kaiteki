@@ -29,7 +29,7 @@ export const getSelectors = (selectors, selectedRowKeys, setSelectedRowKeys, han
             (key) => !selectedRowKeys.includes(key)
           );
         case 'odd':
-          return generateSelection('odd', 'Непарні', (_, index) => index % 2 !== 0);
+          return generateSelection('odd', 'Непарні', (_, index) => index % 2 === 1);
         case 'even':
           return generateSelection('even', 'Парні', (_, index) => index % 2 === 0);
         default:

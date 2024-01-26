@@ -13,5 +13,20 @@ export function useSelectedColumns(selectors) {
     [handleSelect, selected, selectors]
   );
 
-  return rowSelection;
+  const handleAddOnRow = useCallback(
+    (id) => {
+      {
+        if (selected.includes(id)) {
+          setSelected([]);
+
+          return;
+        }
+
+        setSelected([id]);
+      }
+    },
+    [selected]
+  );
+
+  return { rowSelection, handleAddOnRow };
 }

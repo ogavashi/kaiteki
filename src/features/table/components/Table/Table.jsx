@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import { Table as AntTable } from 'antd';
-import { useSelectedColumns, useTable } from '@features/table';
+import { useTable } from '@features/table';
 
-export const Table = ({ api, tableSchema }) => {
+export const Table = ({ api, tableSchema, rowSelection, handleAddOnRow }) => {
   const { data, isLoading, handleTableChange, tableParams } = useTable(api);
-  const rowSelection = useSelectedColumns(['all', 'none', 'inverted', 'even', 'odd']);
 
   return (
     <AntTable
@@ -16,7 +15,7 @@ export const Table = ({ api, tableSchema }) => {
       pagination={{ ...tableParams.pagination }}
       rowKey={(record) => record.id}
       onRow={(record) => ({
-        onClick: () => console.log(record),
+        onClick: () => handleAddOnRow(record.id),
       })}
     />
   );
@@ -25,4 +24,6 @@ export const Table = ({ api, tableSchema }) => {
 Table.propTypes = {
   api: PropTypes.func,
   tableSchema: PropTypes.arrayOf(PropTypes.shape({})),
+  rowSelection: PropTypes.object,
+  handleAddOnRow: PropTypes.func,
 };
