@@ -20,6 +20,10 @@ export const router = createBrowserRouter([
         path: ROUTES.ACTS.children.NEW_ACT.path,
         element: <CreateAct />,
       },
+      {
+        path: ROUTES.ACTS.children.UPDATE_ACT.path,
+        element: <>Edit</>,
+      },
     ],
   },
   { element: <AuthLayout />, children: [{ path: ROUTES.LOGIN.path, element: <Login /> }] },

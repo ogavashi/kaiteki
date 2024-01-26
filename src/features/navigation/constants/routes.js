@@ -13,6 +13,12 @@ export const ROUTES = {
         visible: false,
         label: 'Створити',
       },
+      UPDATE_ACT: {
+        path: '/acts/update/:id',
+        protected: true,
+        visible: false,
+        label: 'Оновити',
+      },
     },
   },
 };

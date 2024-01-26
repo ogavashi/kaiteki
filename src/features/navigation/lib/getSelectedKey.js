@@ -2,7 +2,7 @@ export const getSelectedKey = (routes, pathname) => {
   for (const key in routes) {
     const route = routes[key];
 
-    if (route.path === pathname) {
+    if (helperCheck(route.path, pathname)) {
       return route.path;
     }
 
@@ -16,4 +16,16 @@ export const getSelectedKey = (routes, pathname) => {
   }
 
   return null;
+};
+
+const helperCheck = (lhs, rhs) => {
+  let routePath = lhs;
+  let pathName = rhs;
+
+  if (lhs.includes(':')) {
+    routePath = lhs.slice(0, rhs.lastIndexOf('/'));
+    pathName = rhs.slice(0, rhs.lastIndexOf('/'));
+  }
+
+  return routePath === pathName;
 };

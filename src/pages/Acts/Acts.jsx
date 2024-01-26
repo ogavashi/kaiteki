@@ -24,6 +24,11 @@ export function Acts() {
           component: ActionButtons.Create,
           destination: ROUTES.ACTS.children.NEW_ACT.path,
         },
+        {
+          id: 'update',
+          component: ActionButtons.Update,
+          destination: ROUTES.ACTS.children.UPDATE_ACT.path,
+        },
       ],
     }),
     []
@@ -31,7 +36,7 @@ export function Acts() {
 
   return (
     <div>
-      <ActionPanel scheme={actionPanelScheme} />
+      <ActionPanel scheme={actionPanelScheme} selectedRows={rowSelection.selectedRowKeys} />
       <Table
         api={api}
         tableSchema={tableSchema}
