@@ -29,6 +29,12 @@ export function Acts() {
           component: ActionButtons.Update,
           destination: ROUTES.ACTS.children.UPDATE_ACT.path,
         },
+        {
+          id: 'delete',
+          type: 'modal',
+          mode: 'delete',
+          component: ActionButtons.Delete,
+        },
       ],
     }),
     []
