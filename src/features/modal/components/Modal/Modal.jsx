@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Modal as AntModal } from 'antd';
 
 export const Modal = ({ isOpen, handleClose }) => {
-  console.log(isOpen);
   return (
     <AntModal open={isOpen} onCancel={handleClose}>
       <>Biba i boba</>

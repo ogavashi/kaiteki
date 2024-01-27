@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 import { Modal } from '../Modal';
-import { Button } from 'antd';
+import { ModalButton } from '../ModalButton';
 
 export const ModalWrapper = ({ mode, api, isDisabled }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,9 +16,7 @@ export const ModalWrapper = ({ mode, api, isDisabled }) => {
 
   return (
     <>
-      <Button onClick={handleOpenModal} disabled={isDisabled}>
-        Click
-      </Button>
+      <ModalButton mode={mode} handleOpenModal={handleOpenModal} isDisabled={isDisabled} />
       <Modal isOpen={isOpen} handleClose={handleCloseModal} mode={mode} api={api} />
     </>
   );
