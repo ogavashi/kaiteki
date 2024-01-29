@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Modal } from '../Modal';
 import { ModalButton } from '../ModalButton';
 
-export const ModalWrapper = ({ mode, api, isDisabled }) => {
+export const ModalWrapper = ({ mode, api, isDisabled, handleRefresh }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseModal = useCallback(() => {
@@ -17,7 +17,13 @@ export const ModalWrapper = ({ mode, api, isDisabled }) => {
   return (
     <>
       <ModalButton mode={mode} handleOpenModal={handleOpenModal} isDisabled={isDisabled} />
-      <Modal isOpen={isOpen} handleClose={handleCloseModal} mode={mode} api={api} />
+      <Modal
+        isOpen={isOpen}
+        handleClose={handleCloseModal}
+        mode={mode}
+        api={api}
+        handleRefresh={handleRefresh}
+      />
     </>
   );
 };
@@ -26,4 +32,5 @@ ModalWrapper.propTypes = {
   mode: PropTypes.string,
   api: PropTypes.func,
   isDisabled: PropTypes.bool,
+  handleRefresh: PropTypes.func,
 };

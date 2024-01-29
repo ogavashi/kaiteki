@@ -1,9 +1,9 @@
+import { Button } from 'antd';
+import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { Button } from 'antd';
 
-export function Update({ selectedRows, destination }) {
+export function Read({ selectedRows, destination }) {
   const navigate = useNavigate();
 
   const isDisabled = useMemo(() => selectedRows.length !== 1, [selectedRows]);
@@ -14,13 +14,17 @@ export function Update({ selectedRows, destination }) {
   }, [destination, navigate, selectedRows]);
 
   return (
-    <Button onClick={handleClick} type='dashed' disabled={isDisabled}>
-      Оновити
+    <Button onClick={handleClick} type='default' disabled={isDisabled}>
+      Переглянути
     </Button>
   );
 }
 
-Update.propTypes = {
+Read.propTypes = {
   destination: PropTypes.string,
   selectedRows: PropTypes.arrayOf(PropTypes.number),
+  type: PropTypes.string,
+  mode: PropTypes.string,
+  api: PropTypes.func,
+  handleRefresh: PropTypes.func,
 };

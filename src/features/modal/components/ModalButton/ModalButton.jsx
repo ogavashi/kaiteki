@@ -10,7 +10,7 @@ export const ModalButton = ({ mode, handleOpenModal, isDisabled }) => {
   switch (mode) {
     case 'delete':
       return (
-        <Button danger {...buttonProps}>
+        <Button danger {...buttonProps} type='primary'>
           Видалити
         </Button>
       );

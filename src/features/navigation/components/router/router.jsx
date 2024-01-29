@@ -21,6 +21,10 @@ export const router = createBrowserRouter([
         element: <CreateAct />,
       },
       {
+        path: ROUTES.ACTS.children.READ_ACT.path,
+        element: <>Read</>,
+      },
+      {
         path: ROUTES.ACTS.children.UPDATE_ACT.path,
         element: <>Edit</>,
       },

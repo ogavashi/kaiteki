@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export function useTable(api) {
+export function useTable(api, shouldRefresh, handleRefresh) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [tableParams, setTableParams] = useState({
@@ -25,6 +25,13 @@ export function useTable(api) {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      fetchData();
+      handleRefresh(false);
+    }
+  }, [fetchData, handleRefresh, shouldRefresh]);
 
   const handleTableChange = useCallback(
     (pagination, filters, sorter) => {

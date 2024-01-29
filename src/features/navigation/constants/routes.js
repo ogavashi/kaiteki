@@ -19,6 +19,12 @@ export const ROUTES = {
         visible: false,
         label: 'Оновити',
       },
+      READ_ACT: {
+        path: '/acts/:id',
+        protected: true,
+        visible: false,
+        label: 'Переглянути',
+      },
     },
   },
 };

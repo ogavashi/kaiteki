@@ -110,6 +110,11 @@ export class Acts extends Base {
 
     return result;
   };
+
+  delete = async (params) => {
+    console.log(params);
+    await resolveWithDelay();
+  };
 }
 
 // {

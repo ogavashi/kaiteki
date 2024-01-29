@@ -2,8 +2,19 @@ import PropTypes from 'prop-types';
 import { Table as AntTable } from 'antd';
 import { useTable } from '@features/table';
 
-export const Table = ({ api, tableSchema, rowSelection, handleAddOnRow }) => {
-  const { data, isLoading, handleTableChange, tableParams } = useTable(api);
+export const Table = ({
+  api,
+  tableSchema,
+  rowSelection,
+  handleAddOnRow,
+  shouldRefresh,
+  handleRefresh,
+}) => {
+  const { data, isLoading, handleTableChange, tableParams } = useTable(
+    api,
+    shouldRefresh,
+    handleRefresh
+  );
 
   return (
     <AntTable
@@ -26,4 +37,6 @@ Table.propTypes = {
   tableSchema: PropTypes.arrayOf(PropTypes.shape({})),
   rowSelection: PropTypes.object,
   handleAddOnRow: PropTypes.func,
+  shouldRefresh: PropTypes.bool,
+  handleRefresh: PropTypes.func,
 };
