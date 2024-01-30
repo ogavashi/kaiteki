@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Modal as AntModal, Divider, Typography } from 'antd';
 import { useCallback, useMemo, useState } from 'react';
-import { showNotification } from '@lib';
+import { WithNotification } from '@features/notification';
 
 const okButtonTitles = {
   delete: 'Видалити',
@@ -15,62 +15,66 @@ const modalTitles = {
   update: 'Оновлення запису',
 };
 
-export const Modal = ({ isOpen, handleClose, mode, api, handleRefresh }) => {
-  const [isLoading, setIsLoading] = useState(false);
+export const Modal = WithNotification(
+  ({ isOpen, handleClose, mode, api, handleRefresh, notify }) => {
+    const [isLoading, setIsLoading] = useState(false);
 
-  const handleCancel = useCallback(() => {
-    handleClose();
-  }, [handleClose]);
-
-  const handleSubmit = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      await api();
-      handleRefresh();
+    const handleCancel = useCallback(() => {
       handleClose();
-      showNotification({
-        type: 'success',
-        message: 'Успіх!',
-        description: 'Дію успішно виконано.',
-      });
-    } catch (error) {
-      showNotification({
-        type: 'error',
-        message: 'Помилка!',
-        description: error.message,
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }, [api, handleClose, handleRefresh]);
+    }, [handleClose]);
 
-  const okButtonProps = useMemo(
-    () => ({
-      danger: mode === 'delete',
-    }),
-    [mode]
-  );
+    const handleSubmit = useCallback(async () => {
+      try {
+        setIsLoading(true);
+        await api();
+        handleRefresh();
+        handleClose();
+        notify({
+          type: 'success',
+          message: 'Успіх!',
+          description: 'Дію успішно виконано.',
+        });
+      } catch (error) {
+        notify({
+          type: 'error',
+          message: 'Помилка!',
+          description: error.message,
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    }, [api, handleClose, handleRefresh, notify]);
 
-  return (
-    <AntModal
-      open={isOpen}
-      onCancel={handleCancel}
-      onOk={handleSubmit}
-      okButtonProps={okButtonProps}
-      okText={okButtonTitles[mode]}
-      cancelText='Відмінити'
-      title={modalTitles[mode]}
-      centered
-      confirmLoading={isLoading}
-    >
-      <Divider />
-      {mode === 'delete' && (
-        <Typography.Text strong>Ви впевнені, що хочете видалити запис?</Typography.Text>
-      )}
-      <Divider />
-    </AntModal>
-  );
-};
+    const okButtonProps = useMemo(
+      () => ({
+        danger: mode === 'delete',
+      }),
+      [mode]
+    );
+
+    return (
+      <>
+        <AntModal
+          open={isOpen}
+          onCancel={handleCancel}
+          onOk={handleSubmit}
+          okButtonProps={okButtonProps}
+          okText={okButtonTitles[mode]}
+          cancelText='Відмінити'
+          title={modalTitles[mode]}
+          centered
+          confirmLoading={isLoading}
+        >
+          <Divider />
+          {mode === 'delete' && (
+            <Typography.Text strong>Ви впевнені, що хочете видалити запис?</Typography.Text>
+          )}
+          <Divider />
+        </AntModal>
+      </>
+    );
+  }
+);
 
 Modal.propTypes = {
   isOpen: PropTypes.bool,

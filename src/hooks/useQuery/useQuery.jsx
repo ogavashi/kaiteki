@@ -2,7 +2,7 @@ import { useMemo, useCallback } from 'react';
 import queryString from 'query-string';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export function useQuery(fields, replace = true) {
+export function useQuery(replace = true) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -12,16 +12,8 @@ export function useQuery(fields, replace = true) {
       arrayFormat: 'colon-list-separator',
     });
 
-    const normalizedQueryString = Object.fromEntries(
-      Object.entries(parsedQueryString).map(([key, value]) => {
-        const formatter = fields?.find((field) => key === field.id)?.formatter;
-
-        return [key, formatter ? formatter(value) : value];
-      })
-    );
-
-    return normalizedQueryString;
-  }, [fields, location.search]);
+    return parsedQueryString;
+  }, [location.search]);
 
   const setQuery = useCallback(
     (newQuery) => {
@@ -29,6 +21,8 @@ export function useQuery(fields, replace = true) {
         ...query,
         ...newQuery,
       };
+
+      console.log('new query', params);
 
       navigate(
         {

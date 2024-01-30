@@ -1,53 +1,62 @@
-import { useCallback, useEffect, useState } from 'react';
+/* eslint-disable no-unused-vars */
+import { usePagination, useQuery } from '@hooks';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function useTable(api, shouldRefresh, handleRefresh) {
+  const params = useParams();
+  const pagination = usePagination();
+
+  const [query, setQuery] = useQuery();
+
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 5,
-    },
-  });
 
-  const fetchData = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      const newData = await api(tableParams);
-      setData(newData);
-    } catch (error) {
-      console.warn(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [api, tableParams]);
+  const fetchParams = useMemo(
+    () => ({
+      ...params,
+      ...query,
+      total: true,
+    }),
+    [params, query]
+  );
+
+  const fetchData = useCallback(
+    async (params) => {
+      try {
+        setIsLoading(true);
+        const newData = await api(params);
+        setData(newData);
+      } catch (error) {
+        console.warn(error);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [api]
+  );
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchData(fetchParams);
+  }, [fetchData, fetchParams]);
 
   useEffect(() => {
     if (shouldRefresh) {
-      fetchData();
+      fetchData(fetchParams);
       handleRefresh(false);
     }
-  }, [fetchData, handleRefresh, shouldRefresh]);
+  }, [fetchData, fetchParams, handleRefresh, shouldRefresh]);
 
   const handleTableChange = useCallback(
-    (pagination, filters, sorter) => {
-      setTableParams({
-        pagination,
-        filters,
-        ...sorter,
-      });
+    (_pagination, _filters, sorter) => {
+      const { field, order } = sorter;
 
-      // `dataSource` is useless since `pageSize` changed
-      if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-        setData([]);
-      }
+      const updatedQuery = order ? { order, field } : { order: null, field: null };
+
+      setQuery({ ...query, ...updatedQuery });
     },
-    [tableParams.pagination?.pageSize]
+    [query, setQuery]
   );
 
-  return { data, handleTableChange, isLoading, tableParams };
+  return { data, isLoading, handleTableChange, pagination };
 }

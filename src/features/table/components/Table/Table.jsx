@@ -10,11 +10,13 @@ export const Table = ({
   shouldRefresh,
   handleRefresh,
 }) => {
-  const { data, isLoading, handleTableChange, tableParams } = useTable(
+  const { data, isLoading, handleTableChange, pagination } = useTable(
     api,
     shouldRefresh,
     handleRefresh
   );
+
+  const { page, count, handleChangeCount, handleChangePage } = pagination;
 
   return (
     <AntTable
@@ -22,8 +24,17 @@ export const Table = ({
       loading={isLoading}
       columns={tableSchema}
       dataSource={data}
+      pagination={{
+        pageSizeOptions: [5, 10, 20],
+        position: ['bottomCenter'],
+        showSizeChanger: true,
+        current: page,
+        pageSize: count,
+        onChange: handleChangePage,
+        onShowSizeChange: handleChangeCount,
+        total: data?.meta?.total,
+      }}
       onChange={handleTableChange}
-      pagination={{ ...tableParams.pagination }}
       rowKey={(record) => record.id}
       onRow={(record) => ({
         onClick: () => handleAddOnRow(record.id),
