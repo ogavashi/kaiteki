@@ -22,8 +22,6 @@ export function useQuery(replace = true) {
         ...newQuery,
       };
 
-      console.log('new query', params);
-
       navigate(
         {
           pathname: location.pathname,

@@ -10,28 +10,27 @@ export const Table = ({
   shouldRefresh,
   handleRefresh,
 }) => {
-  const { data, isLoading, handleTableChange, pagination } = useTable(
+  const { data, isLoading, handleTableChange, page, count, tableColumns } = useTable(
     api,
     shouldRefresh,
-    handleRefresh
+    handleRefresh,
+    tableSchema
   );
-
-  const { page, count, handleChangeCount, handleChangePage } = pagination;
 
   return (
     <AntTable
       rowSelection={rowSelection}
       loading={isLoading}
-      columns={tableSchema}
+      columns={tableColumns}
       dataSource={data}
+      defaultFilteredValue={['number']}
+      defaultSortOrder='asc'
       pagination={{
         pageSizeOptions: [5, 10, 20],
         position: ['bottomCenter'],
         showSizeChanger: true,
         current: page,
         pageSize: count,
-        onChange: handleChangePage,
-        onShowSizeChange: handleChangeCount,
         total: data?.meta?.total,
       }}
       onChange={handleTableChange}
