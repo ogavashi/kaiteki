@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 export function Create({ destination }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export function Create({ destination }) {
   }, [destination, navigate]);
 
   return (
-    <Button onClick={handleClick} type='primary'>
+    <Button onClick={handleClick} type='primary' icon={<PlusOutlined />}>
       Створити
     </Button>
   );

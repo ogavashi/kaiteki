@@ -1,7 +1,7 @@
 // import AppConfig from '@config';
 import { PAGE_KEYS } from '@constants';
 import { ApiClient } from './ApiClient';
-import { Acts, Test } from './entities';
+import { Acts, Companies, Test } from './entities';
 
 class ApiService {
   constructor({ apiUrl, token } = {}) {
@@ -13,6 +13,7 @@ class ApiService {
 
     this[PAGE_KEYS.TEST] = new Test({ apiClient });
     this[PAGE_KEYS.ACTS] = new Acts({ apiClient });
+    this[PAGE_KEYS.COMPANIES] = new Companies({ apiClient });
   }
 }
 

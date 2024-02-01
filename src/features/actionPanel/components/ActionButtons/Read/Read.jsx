@@ -1,3 +1,4 @@
+import { EyeOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
 import { useCallback, useMemo } from 'react';
@@ -14,7 +15,7 @@ export function Read({ selectedRows, destination }) {
   }, [destination, navigate, selectedRows]);
 
   return (
-    <Button onClick={handleClick} type='default' disabled={isDisabled}>
+    <Button onClick={handleClick} type='default' disabled={isDisabled} icon={<EyeOutlined />}>
       Переглянути
     </Button>
   );

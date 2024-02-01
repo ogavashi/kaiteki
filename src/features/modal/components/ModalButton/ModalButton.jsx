@@ -1,3 +1,4 @@
+import { DeleteOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
 
@@ -10,7 +11,7 @@ export const ModalButton = ({ mode, handleOpenModal, isDisabled }) => {
   switch (mode) {
     case 'delete':
       return (
-        <Button danger {...buttonProps} type='primary'>
+        <Button danger {...buttonProps} type='primary' icon={<DeleteOutlined />}>
           Видалити
         </Button>
       );

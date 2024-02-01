@@ -1,10 +1,12 @@
 import { useCallback, useMemo, useState } from 'react';
+import dayjs from 'dayjs';
 import { PAGE_KEYS } from '@constants';
 import { ApiService } from '@services';
 import { tableSchema } from '@features/acts';
 import { Table, useSelectedColumns } from '@features/table';
 import { ActionButtons, ActionPanel } from '@features/actionPanel';
 import { ROUTES } from '@features/navigation';
+import { Inputs } from '@components';
 
 export function Acts() {
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -47,6 +49,28 @@ export function Acts() {
           mode: 'delete',
           component: ActionButtons.Delete,
           api: ApiService[PAGE_KEYS.ACTS].delete,
+        },
+      ],
+      filters: [
+        {
+          id: 'dateFrom',
+          component: Inputs.Date,
+          fieldProps: {
+            defaultValue: dayjs().startOf('month'),
+          },
+        },
+        {
+          id: 'dateTo',
+          component: Inputs.Date,
+          fieldProps: {
+            defaultValue: dayjs(),
+          },
+        },
+        {
+          id: 'company',
+          component: Inputs.Select,
+          api: ApiService[PAGE_KEYS.COMPANIES].read,
+          fieldProps: {},
         },
       ],
     }),
