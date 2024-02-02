@@ -1,64 +1,81 @@
 /* eslint-disable no-unused-vars */
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Form } from 'antd';
 import PropTypes from 'prop-types';
 import { Select as ASelect, Spin } from 'antd';
+import { WithNotification } from '@features/notification';
+import { useSelectHandlers } from './useSelectHandlers';
 
-export function Select({
-  id,
-  data,
-  fieldProps,
-  disabled,
-  placeholder,
-  errors,
-  onChange,
-  fieldKey,
-}) {
-  const { options: rawOptions, includeAllOption, ...selectProps } = fieldProps;
-  const value = data[id];
+// includeAllOption, api, allOption, setOptions, notify
 
-  const defaultOptions = useMemo(() => {
-    const allOption = { label: 'Всі', value: '' };
-    const newDefaultOptions = rawOptions || [];
+export const Select = WithNotification(
+  ({ id, data, fieldProps, disabled, placeholder, errors, onChange, notify }) => {
+    const {
+      options: rawOptions,
+      includeAllOption,
+      api,
+      selectApiRecord,
+      ...selectProps
+    } = fieldProps;
+    const value = data[id];
 
-    if (includeAllOption) {
-      return [allOption, ...newDefaultOptions];
-    }
+    const allOption = useMemo(() => ({ label: 'Всі', value: '' }), []);
 
-    return newDefaultOptions;
-  }, [includeAllOption, rawOptions]);
+    const defaultOptions = useMemo(() => {
+      const newDefaultOptions = rawOptions || [];
 
-  const [options, setOptions] = useState(defaultOptions);
-  const [isLoading, setIsLoading] = useState(false);
+      if (includeAllOption) {
+        return [allOption, ...newDefaultOptions];
+      }
 
-  return (
-    <Form.Item
-      help={errors?.[id]}
-      validateStatus={errors?.[id] && 'error'}
-      style={{ marginBottom: 0 }}
-    >
-      <ASelect
-        // onClick={handleSelectClick}
-        options={options}
-        // filterOption={handleFilter}
-        // onSearch={api && handleSearch}
-        placeholder={placeholder}
-        disabled={disabled}
-        showSearch
-        value={value}
-        onChange={onChange}
-        {...selectProps}
-        notFoundContent={
-          isLoading ? (
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <Spin size='small' />
-            </div>
-          ) : null
-        }
-      />
-    </Form.Item>
-  );
-}
+      return newDefaultOptions;
+    }, [allOption, includeAllOption, rawOptions]);
+
+    const [options, setOptions] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const { handleClick, handleSearch } = useSelectHandlers({
+      api,
+      notify,
+      setOptions,
+      selectApiRecord,
+      setIsLoading,
+      allOption,
+      includeAllOption: true,
+    });
+
+    useEffect(() => {
+      console.log('New Options', options);
+    }, [options]);
+
+    console.log(options);
+
+    return (
+      <Form.Item
+        help={errors?.[id]}
+        validateStatus={errors?.[id] && 'error'}
+        style={{ marginBottom: 0 }}
+      >
+        <ASelect
+          options={options}
+          onSearch={handleSearch}
+          placeholder={placeholder}
+          disabled={disabled}
+          showSearch
+          value={value}
+          // onChange={onChange}
+          // onClick={handleClick}
+          loading={isLoading}
+          variant='filled'
+          style={{
+            minWidth: '10rem',
+          }}
+          // {...selectProps}
+        />
+      </Form.Item>
+    );
+  }
+);
 
 Select.propTypes = {
   id: PropTypes.string.isRequired,

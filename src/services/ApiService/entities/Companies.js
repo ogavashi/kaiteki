@@ -50,8 +50,13 @@ const MOCK_DATA = [
 
 export class Companies extends Base {
   read = async (params) => {
-    console.log(params);
     const result = await resolveWithDelay(MOCK_DATA);
+
+    const search = params?.search;
+
+    if (search) {
+      return result.filter((option) => option.companyName.includes(search));
+    }
 
     return result;
   };
