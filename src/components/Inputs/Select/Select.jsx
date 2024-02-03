@@ -15,6 +15,7 @@ export const Select = WithNotification(
       includeAllOption,
       api,
       selectApiRecord,
+      label,
       ...selectProps
     } = fieldProps;
     const value = data[id];
@@ -55,6 +56,7 @@ export const Select = WithNotification(
         help={errors?.[id]}
         validateStatus={errors?.[id] && 'error'}
         style={{ marginBottom: 0 }}
+        label={label}
       >
         <ASelect
           options={options}
@@ -63,8 +65,9 @@ export const Select = WithNotification(
           disabled={disabled}
           showSearch
           value={value}
+          filterOption={false}
           // onChange={onChange}
-          // onClick={handleClick}
+          onClick={handleClick}
           loading={isLoading}
           variant='filled'
           style={{

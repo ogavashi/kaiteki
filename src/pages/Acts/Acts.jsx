@@ -70,6 +70,7 @@ export function Acts() {
           id: 'company',
           component: Inputs.Select,
           fieldProps: {
+            label: 'Компанія',
             api: ApiService[PAGE_KEYS.COMPANIES].read,
             selectApiRecord: (record) => ({ value: record.id, label: record.companyName }),
           },
