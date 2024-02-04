@@ -49,8 +49,6 @@ export const Select = WithNotification(
       console.log('New Options', options);
     }, [options]);
 
-    console.log(options);
-
     return (
       <Form.Item
         help={errors?.[id]}
