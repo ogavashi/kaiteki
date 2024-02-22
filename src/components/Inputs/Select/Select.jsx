@@ -15,7 +15,7 @@ export const Select = WithNotification(
       includeAllOption,
       api,
       selectApiRecord,
-      label,
+      defaultValue,
       ...selectProps
     } = fieldProps;
     const value = data[id];
@@ -32,10 +32,10 @@ export const Select = WithNotification(
       return newDefaultOptions;
     }, [allOption, includeAllOption, rawOptions]);
 
-    const [options, setOptions] = useState([]);
+    const [options, setOptions] = useState(defaultOptions);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { handleClick, handleSearch } = useSelectHandlers({
+    const { handleClick, handleSearch, handleChange } = useSelectHandlers({
       api,
       notify,
       setOptions,
@@ -54,9 +54,12 @@ export const Select = WithNotification(
         help={errors?.[id]}
         validateStatus={errors?.[id] && 'error'}
         style={{ marginBottom: 0 }}
-        label={label}
       >
         <ASelect
+          defaultValue={defaultValue}
+          popupMatchSelectWidth={false}
+          dropdownStyle={{ maxWidth: 'fit-content' }}
+          allowClear
           options={options}
           onSearch={handleSearch}
           placeholder={placeholder}
@@ -64,14 +67,10 @@ export const Select = WithNotification(
           showSearch
           value={value}
           filterOption={false}
-          // onChange={onChange}
+          onChange={handleChange}
           onClick={handleClick}
           loading={isLoading}
-          variant='filled'
-          style={{
-            minWidth: '10rem',
-          }}
-          // {...selectProps}
+          {...selectProps}
         />
       </Form.Item>
     );

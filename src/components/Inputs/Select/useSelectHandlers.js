@@ -50,5 +50,9 @@ export function useSelectHandlers({
     [handleFetch]
   );
 
-  return { handleClick, handleSearch };
+  const handleChange = useCallback((values, selectedValue, treeExtra) => {
+    console.log(values, selectedValue, treeExtra);
+  }, []);
+
+  return { handleClick, handleSearch, handleChange };
 }

@@ -54,6 +54,7 @@ export function Acts() {
       filters: [
         {
           id: 'dateFrom',
+          label: 'Від',
           component: Inputs.Date,
           fieldProps: {
             defaultValue: dayjs().startOf('month'),
@@ -61,6 +62,7 @@ export function Acts() {
         },
         {
           id: 'dateTo',
+          label: 'До',
           component: Inputs.Date,
           fieldProps: {
             defaultValue: dayjs(),
@@ -68,10 +70,14 @@ export function Acts() {
         },
         {
           id: 'company',
+          label: 'Компанія',
           component: Inputs.Select,
           fieldProps: {
-            label: 'Компанія',
+            defaultValue: '',
             api: ApiService[PAGE_KEYS.COMPANIES].read,
+            includeAllOption: true,
+            mode: 'multiple',
+            style: { minWidth: '8rem', maxWidth: '10rem' },
             selectApiRecord: (record) => ({ value: record.id, label: record.companyName }),
           },
         },

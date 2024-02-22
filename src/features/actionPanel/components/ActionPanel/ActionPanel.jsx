@@ -8,11 +8,13 @@ export const ActionPanel = ({ scheme, selectedRows, handleRefresh }) => {
         marginBottom: '1rem',
         display: 'flex',
         justifyContent: 'space-between',
-        alignContent: 'center',
         flexWrap: 1,
+        alignItems: 'flex-end',
       }}
     >
-      <Filters filters={scheme.filters} handleRefresh={handleRefresh} />
+      <form>
+        <Filters filters={scheme.filters} handleRefresh={handleRefresh} />
+      </form>
       <div style={{ display: 'flex', gap: '1rem' }}>
         {scheme.actions?.map(({ id, component: Component, ...props }) => {
           return (
