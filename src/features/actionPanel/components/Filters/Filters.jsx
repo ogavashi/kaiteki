@@ -18,7 +18,7 @@ export const Filters = ({ filters, handleRefresh }) => {
   }, [data]);
 
   return (
-    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-end' }}>
+    <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
       {filters?.map(({ id, component: Component, label, ...props }) => {
         return (
           <ItemLabel

@@ -7,6 +7,7 @@ import { Table, useSelectedColumns } from '@features/table';
 import { ActionButtons, ActionPanel } from '@features/actionPanel';
 import { ROUTES } from '@features/navigation';
 import { Inputs } from '@components';
+import { INPUT_NORMALIZERS } from '@lib';
 
 export function Acts() {
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -77,8 +78,9 @@ export function Acts() {
             api: ApiService[PAGE_KEYS.COMPANIES].read,
             includeAllOption: true,
             mode: 'multiple',
-            style: { minWidth: '8rem', maxWidth: '10rem' },
+            style: { width: '15rem' },
             selectApiRecord: (record) => ({ value: record.id, label: record.companyName }),
+            normalizer: INPUT_NORMALIZERS.selectAll,
           },
         },
       ],

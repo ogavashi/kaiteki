@@ -16,6 +16,7 @@ export const Select = WithNotification(
       api,
       selectApiRecord,
       defaultValue,
+      normalizer,
       ...selectProps
     } = fieldProps;
     const value = data[id];
@@ -36,18 +37,24 @@ export const Select = WithNotification(
     const [isLoading, setIsLoading] = useState(false);
 
     const { handleClick, handleSearch, handleChange } = useSelectHandlers({
+      id,
+      includeAllOption,
       api,
-      notify,
+      rawOptions,
+      options,
+      allOption,
       setOptions,
+      notify,
       selectApiRecord,
       setIsLoading,
-      allOption,
-      includeAllOption: true,
+      normalizer,
+      data,
+      onChange,
     });
 
-    useEffect(() => {
-      console.log('New Options', options);
-    }, [options]);
+    // useEffect(() => {
+    //   console.log('New Options', options);
+    // }, [options]);
 
     return (
       <Form.Item

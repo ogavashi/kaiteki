@@ -1,13 +1,18 @@
 import { useCallback } from 'react';
 
 export function useSelectHandlers({
+  id,
   includeAllOption,
   api,
+  rawOptions,
+  options,
   allOption,
   setOptions,
   notify,
   selectApiRecord,
   setIsLoading,
+  normalizer,
+  data,
 }) {
   const handleFetch = useCallback(
     async (params) => {
@@ -26,8 +31,6 @@ export function useSelectHandlers({
         if (includeAllOption) {
           newOptions.unshift(allOption);
         }
-
-        console.log('FETCHED', newOptions);
 
         setOptions(newOptions);
       } catch (error) {
@@ -50,9 +53,22 @@ export function useSelectHandlers({
     [handleFetch]
   );
 
-  const handleChange = useCallback((values, selectedValue, treeExtra) => {
-    console.log(values, selectedValue, treeExtra);
-  }, []);
+  const handleChange = useCallback(
+    (values, selectedValue, treeExtra) => {
+      const normalizedValue =
+        normalizer?.({
+          values,
+          selectedValue,
+          data,
+          options: rawOptions || options,
+          id,
+          treeExtra,
+        }) || selectedValue;
+
+      console.log(normalizedValue);
+    },
+    [data, id, normalizer, options, rawOptions]
+  );
 
   return { handleClick, handleSearch, handleChange };
 }
