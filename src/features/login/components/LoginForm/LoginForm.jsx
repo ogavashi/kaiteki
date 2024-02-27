@@ -13,11 +13,11 @@ export function LoginForm({ handleLogin, isLoading, errors, data, handleChange }
 
   return (
     <Form requiredMark={false} layout='vertical' onFinish={handleSubmit} autoComplete='off'>
-      <Form.Item label='Логін'>
+      <Form.Item label='Пошта'>
         <Inputs.Input
-          id={'login'}
+          id={'email'}
           data={data}
-          placeholder='Логін'
+          placeholder='Пошта'
           onChange={handleChange}
           errors={errors}
         />

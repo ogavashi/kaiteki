@@ -1,1 +1,1 @@
-export { Login } from './Login';
+export { LoginWithNotification as Login } from './Login';

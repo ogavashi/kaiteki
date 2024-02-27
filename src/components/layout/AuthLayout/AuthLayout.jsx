@@ -1,10 +1,18 @@
 import { memo } from 'react';
 import { Layout, Row, Typography } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { BookOutlined } from '@ant-design/icons';
+import { useUserStore } from '@features/user';
+import { ROUTES } from '@features/navigation';
 
 export const AuthLayout = memo(() => {
   const { Header, Content, Footer } = Layout;
+
+  const { user } = useUserStore((state) => state);
+
+  if (user) {
+    return <Navigate to={ROUTES.HOME.path} />;
+  }
 
   return (
     <Layout style={{ height: '100vh' }}>

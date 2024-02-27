@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { BookOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { CustomMenu } from '../Menu';
 import { ROUTES } from '@features/navigation';
+import { useAuth, useUserStore } from '@features/user';
 
 const { Header, Sider, Content } = Layout;
 
@@ -11,6 +12,10 @@ export const MainLayout = memo(() => {
   const {
     token: { colorBgContainer, borderRadius },
   } = theme.useToken();
+
+  const { logout } = useUserStore((state) => state);
+
+  useAuth();
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -68,7 +73,7 @@ export const MainLayout = memo(() => {
           />
           <Row align='middle' style={{ gap: 20 }}>
             <Typography.Text style={{ opacity: 0.65 }}>User</Typography.Text>
-            <Button type='primary' danger>
+            <Button type='primary' danger onClick={logout}>
               Вийти
             </Button>
           </Row>

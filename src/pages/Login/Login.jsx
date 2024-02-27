@@ -1,9 +1,16 @@
-import { LoginForm } from '@features/login';
+import { LOADING_STATES } from '@constants/loadingStates';
+import { validate } from '@features/error';
+import { LoginForm, loginSchema } from '@features/login';
+import { WithNotification } from '@features/notification';
+import { useUserStore } from '@features/user';
 import { useCallback, useState } from 'react';
 
-export function Login() {
+// eslint-disable-next-line react/prop-types
+function Login({ notify }) {
   const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
+
+  const { login, loadingState } = useUserStore((state) => state);
 
   const handleChange = useCallback((name, value) => {
     setData((prevData) => ({
@@ -13,10 +20,17 @@ export function Login() {
   }, []);
 
   const handleLogin = useCallback(() => {
-    console.log(data);
     setErrors({});
-    // const validationErrors = validate(loginSchema, data);
-  }, [data]);
+    const validationErrors = validate(loginSchema, data);
+
+    if (validationErrors) {
+      setErrors(validationErrors);
+
+      return;
+    }
+
+    login(data, notify);
+  }, [data, login, notify]);
 
   return (
     <LoginForm
@@ -24,7 +38,9 @@ export function Login() {
       handleChange={handleChange}
       data={data}
       errors={errors}
-      isLoading={false}
+      isLoading={loadingState === LOADING_STATES.LOADING}
     />
   );
 }
+
+export const LoginWithNotification = WithNotification(Login);

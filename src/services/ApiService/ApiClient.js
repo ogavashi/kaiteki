@@ -1,5 +1,6 @@
 import qs from 'query-string';
 import { bindMiddleware } from './middleware';
+import { parseErrors } from '@features/error';
 
 export class ApiClient {
   constructor({ url }) {
@@ -147,14 +148,12 @@ export class ApiClient {
 
       if (response.status === 207) {
         const errorMessage = this.#tryParseJSON(rawResponseData).message;
+        const parsedErrors = parseErrors({ message: errorMessage });
 
-        console.log(errorMessage);
-        // const parsedErrors = parseErrors({ message: errorMessage });
-
-        // if (parsedErrors) {
-        //   // eslint-disable-next-line no-throw-literal
-        //   throw { serverValidation: parsedErrors };
-        // }
+        if (parsedErrors) {
+          // eslint-disable-next-line no-throw-literal
+          throw { serverValidation: parsedErrors };
+        }
       }
 
       if (response.status >= BAD_SERVER_RESPONSE_RANGE) {
@@ -163,12 +162,13 @@ export class ApiClient {
         if (!Array.isArray(errorMessage)) {
           throw new Error(errorMessage);
         }
-        // const parsedErrors = parseErrors(parsedData);
 
-        // if (parsedErrors) {
-        //   // eslint-disable-next-line no-throw-literal
-        //   throw { serverValidation: parsedErrors };
-        // }
+        const parsedErrors = parseErrors(parsedData);
+
+        if (parsedErrors) {
+          // eslint-disable-next-line no-throw-literal
+          throw { serverValidation: parsedErrors };
+        }
 
         throw new Error('Bad response from server');
       }
