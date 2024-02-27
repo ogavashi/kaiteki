@@ -61,6 +61,22 @@ export class Companies extends Base {
     return result;
   };
 
+  readById = async (params) => {
+    const result = await resolveWithDelay(MOCK_DATA);
+
+    const id = params?.id;
+
+    if (id.includes('all')) {
+      return result;
+    }
+
+    if (id) {
+      return result.filter((option) => id.includes(String(option.id)));
+    }
+
+    return result;
+  };
+
   delete = async (params) => {
     console.log(params);
     await resolveWithDelay();

@@ -12,7 +12,9 @@ export function useSelectHandlers({
   selectApiRecord,
   setIsLoading,
   normalizer,
+  onChange,
   data,
+  value,
 }) {
   const handleFetch = useCallback(
     async (params) => {
@@ -42,6 +44,23 @@ export function useSelectHandlers({
     [allOption, api, includeAllOption, notify, selectApiRecord, setIsLoading, setOptions]
   );
 
+  const handleFetchById = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const response = await value.api({ id: value.id });
+      const newOptions = response.map(
+        (record) => selectApiRecord?.(record) || { value: record.id, label: record.name }
+      );
+      setOptions(newOptions);
+      const newValues = newOptions.map((record) => record.value);
+      onChange(id, newValues);
+    } catch (error) {
+      notify({ type: 'error', message: 'Помилка', description: error.message });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [id, notify, onChange, selectApiRecord, setIsLoading, setOptions, value]);
+
   const handleClick = useCallback(() => {
     handleFetch();
   }, [handleFetch]);
@@ -63,12 +82,13 @@ export function useSelectHandlers({
           options: rawOptions || options,
           id,
           treeExtra,
+          allOption,
         }) || selectedValue;
 
-      console.log(normalizedValue);
+      onChange(id, normalizedValue);
     },
-    [data, id, normalizer, options, rawOptions]
+    [allOption, data, id, normalizer, onChange, options, rawOptions]
   );
 
-  return { handleClick, handleSearch, handleChange };
+  return { handleClick, handleSearch, handleChange, handleFetchById };
 }

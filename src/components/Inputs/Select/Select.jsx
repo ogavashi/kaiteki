@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useEffect, useMemo, useState } from 'react';
 import { Form } from 'antd';
@@ -6,22 +8,23 @@ import { Select as ASelect, Spin } from 'antd';
 import { WithNotification } from '@features/notification';
 import { useSelectHandlers } from './useSelectHandlers';
 
-// includeAllOption, api, allOption, setOptions, notify
-
 export const Select = WithNotification(
   ({ id, data, fieldProps, disabled, placeholder, errors, onChange, notify }) => {
     const {
       options: rawOptions,
       includeAllOption,
       api,
+      apiById,
+      queryKey,
       selectApiRecord,
       defaultValue,
       normalizer,
       ...selectProps
     } = fieldProps;
     const value = data[id];
+    const selectValue = useMemo(() => (value?.api ? null : value), [value]);
 
-    const allOption = useMemo(() => ({ label: 'Всі', value: '' }), []);
+    const allOption = useMemo(() => ({ label: 'Всі', value: 'all' }), []);
 
     const defaultOptions = useMemo(() => {
       const newDefaultOptions = rawOptions || [];
@@ -33,10 +36,16 @@ export const Select = WithNotification(
       return newDefaultOptions;
     }, [allOption, includeAllOption, rawOptions]);
 
+    useEffect(() => {
+      if (defaultValue !== undefined && !data.hasOwnProperty(id)) {
+        onChange(id, defaultValue);
+      }
+    }, [id, fieldProps?.defaultValue]);
+
     const [options, setOptions] = useState(defaultOptions);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { handleClick, handleSearch, handleChange } = useSelectHandlers({
+    const { handleClick, handleSearch, handleChange, handleFetchById } = useSelectHandlers({
       id,
       includeAllOption,
       api,
@@ -50,11 +59,14 @@ export const Select = WithNotification(
       normalizer,
       data,
       onChange,
+      value,
     });
 
-    // useEffect(() => {
-    //   console.log('New Options', options);
-    // }, [options]);
+    useEffect(() => {
+      if (value?.api) {
+        handleFetchById();
+      }
+    }, [value]);
 
     return (
       <Form.Item
@@ -72,7 +84,7 @@ export const Select = WithNotification(
           placeholder={placeholder}
           disabled={disabled}
           showSearch
-          value={value}
+          value={selectValue}
           filterOption={false}
           onChange={handleChange}
           onClick={handleClick}

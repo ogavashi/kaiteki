@@ -3,11 +3,29 @@
 import { ItemLabel } from '@components';
 import { useQuery } from '@hooks';
 import PropTypes from 'prop-types';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const Filters = ({ filters, handleRefresh }) => {
   const [query, setQuery] = useQuery();
-  const [data, setData] = useState(query);
+
+  const normalizedQuery = useMemo(() => {
+    const newQuery = Object.fromEntries(
+      Object.keys(query).map((fieldKey) => {
+        const field = filters.find(({ id }) => id === fieldKey);
+        const queryField = query[fieldKey];
+
+        if (field?.fieldProps?.apiById) {
+          return [fieldKey, { id: queryField, api: field?.fieldProps?.apiById }];
+        }
+
+        return [fieldKey, queryField];
+      })
+    );
+
+    return newQuery;
+  }, [query, filters]);
+
+  const [data, setData] = useState(normalizedQuery);
 
   const handleChange = useCallback((name, value) => {
     setData((prev) => ({ ...prev, [name]: value }));

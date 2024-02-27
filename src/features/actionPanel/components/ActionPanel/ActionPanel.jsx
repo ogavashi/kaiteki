@@ -8,8 +8,9 @@ export const ActionPanel = ({ scheme, selectedRows, handleRefresh }) => {
         marginBottom: '1rem',
         display: 'flex',
         justifyContent: 'space-between',
-        flexWrap: 1,
+        flexWrap: 'wrap',
         alignItems: 'flex-end',
+        gap: '1rem',
       }}
     >
       <form>

@@ -2,7 +2,7 @@ export const INPUT_NORMALIZERS = {
   selectAll: ({ values, options }) => {
     let selectedValues = values;
 
-    const selectAllOption = values.includes('');
+    const selectAllOption = values.includes('all');
 
     if (selectAllOption) {
       const optionValues = options.map(({ value }) => value);
@@ -11,7 +11,7 @@ export const INPUT_NORMALIZERS = {
 
       selectedValues = optionValues
         .concat(selectedValues)
-        .filter((value, index, self) => value !== '' && self.indexOf(value) === index);
+        .filter((value, index, self) => value !== 'all' && self.indexOf(value) === index);
 
       if (shouldClear) {
         selectedValues = selectedValues.filter((value) => !optionValues.includes(value));

@@ -74,8 +74,9 @@ export function Acts() {
           label: 'Компанія',
           component: Inputs.Select,
           fieldProps: {
-            defaultValue: '',
             api: ApiService[PAGE_KEYS.COMPANIES].read,
+            apiById: ApiService[PAGE_KEYS.COMPANIES].readById,
+            queryKey: 'company',
             includeAllOption: true,
             mode: 'multiple',
             style: { width: '15rem' },
