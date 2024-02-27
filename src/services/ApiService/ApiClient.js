@@ -159,14 +159,14 @@ export class ApiClient {
       if (response.status >= BAD_SERVER_RESPONSE_RANGE) {
         const errorMessage = this.#tryParseJSON(rawResponseData).message;
 
-        if (!Array.isArray(errorMessage)) {
+        if (errorMessage) {
           throw new Error(errorMessage);
         }
 
+        // To modify error messages change realization here
         const parsedErrors = parseErrors(parsedData);
 
         if (parsedErrors) {
-          // eslint-disable-next-line no-throw-literal
           throw { serverValidation: parsedErrors };
         }
 
