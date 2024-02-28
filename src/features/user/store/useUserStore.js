@@ -1,4 +1,5 @@
 import { LOADING_STATES } from '@constants/loadingStates';
+import { ApiService } from '@services';
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 
@@ -12,6 +13,16 @@ export const useUserStore = create(
         login: (user, token) => {
           set(() => ({ user, token }));
         },
+        getMe: async () => {
+          set(() => ({ loadingState: LOADING_STATES.LOADING }));
+          try {
+            const user = await ApiService.user.me();
+            set(() => ({ user }));
+            set(() => ({ loadingState: LOADING_STATES.LOADED }));
+          } catch (error) {
+            set(() => ({ loadingState: LOADING_STATES.ERROR }));
+          }
+        },
         logout: () => {
           set(() => ({
             user: null,
@@ -22,7 +33,7 @@ export const useUserStore = create(
       {
         name: 'user-storage',
         storage: createJSONStorage(() => localStorage),
-        partialize: (state) => ({ user: state.user, token: state.token }),
+        partialize: (state) => ({ token: state.token }),
       }
     )
   )

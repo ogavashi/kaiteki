@@ -6,4 +6,10 @@ export class User extends Base {
 
     return data;
   };
+
+  me = async () => {
+    const data = await this.apiClient.get('auth/me');
+
+    return data;
+  };
 }

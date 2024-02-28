@@ -1,10 +1,10 @@
 import { memo, useCallback, useState } from 'react';
 import { Button, Layout, Row, Typography, theme } from 'antd';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import { BookOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { CustomMenu } from '../Menu';
 import { ROUTES } from '@features/navigation';
-import { useAuth, useUserStore } from '@features/user';
+import { useUserStore } from '@features/user';
 
 const { Header, Sider, Content } = Layout;
 
@@ -15,11 +15,15 @@ export const MainLayout = memo(() => {
 
   const { logout } = useUserStore((state) => state);
 
-  useAuth();
-
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapse = useCallback(() => setCollapsed((prev) => !prev), []);
+
+  const { user } = useUserStore((state) => state);
+
+  if (!user) {
+    return <Navigate to={ROUTES.LOGIN.path} />;
+  }
 
   return (
     <Layout style={{ height: '100vh' }}>

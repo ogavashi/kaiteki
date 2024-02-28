@@ -1,6 +1,7 @@
 import qs from 'query-string';
 import { bindMiddleware } from './middleware';
 import { parseErrors } from '@features/error';
+import { useUserStore } from '@features/user';
 
 export class ApiClient {
   constructor({ url }) {
@@ -104,7 +105,7 @@ export class ApiClient {
     query = {},
     signal = new AbortController().signal,
   }) => {
-    // const token = store.getState().user.token;
+    const token = useUserStore.getState().token;
 
     const config = {
       method,
@@ -114,7 +115,7 @@ export class ApiClient {
       headers: {
         ...this.defaultHeaders,
         ...headers,
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       url,
     };

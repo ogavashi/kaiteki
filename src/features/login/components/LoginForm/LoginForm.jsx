@@ -12,7 +12,13 @@ export function LoginForm({ handleLogin, isLoading, errors, data, handleChange }
   );
 
   return (
-    <Form requiredMark={false} layout='vertical' onFinish={handleSubmit} autoComplete='off'>
+    <Form
+      requiredMark={false}
+      layout='vertical'
+      onFinish={handleSubmit}
+      autoComplete='off'
+      style={{ width: '15rem' }}
+    >
       <Form.Item label='Пошта'>
         <Inputs.Input
           id={'email'}
