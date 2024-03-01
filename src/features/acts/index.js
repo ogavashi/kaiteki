@@ -1,1 +1,1 @@
-export { tableSchema } from './schemas';
+export { tableSchema, actsSchema } from './schemas';

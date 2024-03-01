@@ -115,6 +115,11 @@ export class Acts extends Base {
     console.log(params);
     await resolveWithDelay();
   };
+
+  create = async (data) => {
+    console.log(data);
+    await resolveWithDelay();
+  };
 }
 
 // {

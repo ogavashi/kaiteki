@@ -33,11 +33,11 @@ export function Input({
 
   function renderInput() {
     const inputProps = {
-      placeholder,
       disabled,
       onChange: handleChange,
       onBlur,
       value,
+      placeholder: placeholder || 'Введіть дані',
       ...fieldProps,
     };
 

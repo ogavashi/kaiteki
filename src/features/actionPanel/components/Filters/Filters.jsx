@@ -44,7 +44,7 @@ export const Filters = ({ filters, handleRefresh }) => {
             label={label}
             // style={{ ...(options ? { minWidth: '8rem', maxWidth: '10rem' } : {}) }}
           >
-            <Component key={id} id={id} data={data} onChange={handleChange} {...props} />{' '}
+            <Component key={id} id={id} data={data} onChange={handleChange} {...props} />
           </ItemLabel>
         );
       })}
