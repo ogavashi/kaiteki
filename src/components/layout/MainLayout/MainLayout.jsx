@@ -19,9 +19,9 @@ export const MainLayout = memo(() => {
 
   const toggleCollapse = useCallback(() => setCollapsed((prev) => !prev), []);
 
-  const { user } = useUserStore((state) => state);
+  const { token } = useUserStore((state) => state);
 
-  if (!user) {
+  if (!token) {
     return <Navigate to={ROUTES.LOGIN.path} />;
   }
 
