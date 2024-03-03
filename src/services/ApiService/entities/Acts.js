@@ -108,7 +108,7 @@ export class Acts extends Base {
     console.log(params);
     const result = await resolveWithDelay(MOCK_DATA);
 
-    return result;
+    return { data: result };
   };
 
   readById = async (params) => {

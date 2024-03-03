@@ -1,8 +1,9 @@
+import { normalizeData } from '../../lib/normalizeData';
 import { useIsFirstRender, usePagination, useQuery } from '@hooks';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export function useTable(api, shouldRefresh, handleRefresh, tableSchema) {
+export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normalizer) {
   const params = useParams();
   const isFirstRender = useIsFirstRender();
 
@@ -37,14 +38,17 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema) {
       try {
         setIsLoading(true);
         const newData = await api(params);
-        setData(newData);
+
+        const normalized = normalizer?.(newData) || normalizeData(newData);
+
+        setData(normalized);
       } catch (error) {
         console.warn(error);
       } finally {
         setIsLoading(false);
       }
     },
-    [api]
+    [api, normalizer]
   );
 
   useEffect(() => {

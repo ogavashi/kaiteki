@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Table as AntTable } from 'antd';
 import { useTable } from '@features/table';
+import { useMemo } from 'react';
 
 export const Table = ({
   api,
@@ -17,12 +18,14 @@ export const Table = ({
     tableSchema
   );
 
+  const dataSource = useMemo(() => data?.tableData, [data]);
+
   return (
     <AntTable
       rowSelection={rowSelection}
       loading={isLoading}
       columns={tableColumns}
-      dataSource={data}
+      dataSource={dataSource}
       defaultFilteredValue={['number']}
       defaultSortOrder='asc'
       pagination={{

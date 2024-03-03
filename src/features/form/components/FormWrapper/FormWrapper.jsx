@@ -4,12 +4,12 @@ import { Form } from '../Form';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { WithNotification } from '@features/notification';
-import { Spin } from 'antd';
+import { Empty, Spin } from 'antd';
 
 export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema, notify }) => {
   const { id } = useParams();
 
-  const [data, setData] = useState({});
+  const [data, setData] = useState();
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -41,7 +41,24 @@ export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema,
     fetchData();
   }, [fetchData]);
 
-  console.log(data);
+  const render = useCallback(() => {
+    if (isFetching) {
+      return <Spin />;
+    }
+    if (!data && !isFetching) {
+      return <Empty />;
+    }
+
+    return (
+      <Form
+        formSchema={formSchema}
+        data={data}
+        handleChange={handleChange}
+        isLoading={isLoading}
+        errors={errors}
+      />
+    );
+  }, [data, errors, formSchema, handleChange, isFetching, isLoading]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -54,17 +71,7 @@ export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema,
         setErrors={setErrors}
         validationSchema={schema}
       />
-      {isFetching ? (
-        <Spin />
-      ) : (
-        <Form
-          formSchema={formSchema}
-          data={data}
-          handleChange={handleChange}
-          isLoading={isLoading}
-          errors={errors}
-        />
-      )}
+      {render()}
     </div>
   );
 });

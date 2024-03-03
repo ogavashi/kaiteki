@@ -19,7 +19,7 @@ export const AuthProvider = () => {
   }, []);
 
   useEffect(() => {
-    if (!token || (!user && loadingState === LOADING_STATES.LOADED)) {
+    if (!token || (!user && loadingState === LOADING_STATES.ERROR)) {
       navigate(ROUTES.LOGIN.path);
     }
   }, [user, loadingState]);

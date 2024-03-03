@@ -1,4 +1,5 @@
 import { validate } from '@features/error';
+import { findParentRoute } from '@features/navigation';
 import { WithNotification } from '@features/notification';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
@@ -8,10 +9,15 @@ import { useNavigate } from 'react-router-dom';
 export const ActionPanel = WithNotification(
   ({ data, notify, isLoading, setIsLoading, api, validationSchema, setErrors, isFetching }) => {
     const navigate = useNavigate();
+    const { pathname } = location;
 
     const handleGoBack = useCallback(() => {
-      navigate(-1);
-    }, [navigate]);
+      const target = findParentRoute(pathname);
+
+      if (target) {
+        navigate(target.path);
+      }
+    }, [navigate, pathname]);
 
     const handleSubmit = useCallback(async () => {
       setErrors({});
@@ -46,7 +52,12 @@ export const ActionPanel = WithNotification(
         <Button onClick={handleGoBack} disabled={isLoading || isFetching}>
           Назад
         </Button>
-        <Button type='primary' onClick={handleSubmit} loading={isLoading} disabled={isFetching}>
+        <Button
+          type='primary'
+          onClick={handleSubmit}
+          loading={isLoading}
+          disabled={isFetching || (!data && !isFetching)}
+        >
           Зберегти
         </Button>
       </div>
