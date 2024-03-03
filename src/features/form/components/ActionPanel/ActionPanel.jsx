@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const ActionPanel = WithNotification(
-  ({ data, notify, isLoading, setIsLoading, api, validationSchema, setErrors }) => {
+  ({ data, notify, isLoading, setIsLoading, api, validationSchema, setErrors, isFetching }) => {
     const navigate = useNavigate();
 
     const handleGoBack = useCallback(() => {
@@ -43,10 +43,10 @@ export const ActionPanel = WithNotification(
 
     return (
       <div style={{ display: 'flex', gap: '1rem' }}>
-        <Button onClick={handleGoBack} disabled={isLoading}>
+        <Button onClick={handleGoBack} disabled={isLoading || isFetching}>
           Назад
         </Button>
-        <Button type='primary' onClick={handleSubmit} loading={isLoading}>
+        <Button type='primary' onClick={handleSubmit} loading={isLoading} disabled={isFetching}>
           Зберегти
         </Button>
       </div>
@@ -56,6 +56,7 @@ export const ActionPanel = WithNotification(
 
 ActionPanel.propTypes = {
   isLoading: PropTypes.bool,
+  isFetching: PropTypes.bool,
   handlePrimary: PropTypes.func,
   data: PropTypes.object,
   setIsLoading: PropTypes.func,

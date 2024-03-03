@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { AuthLayout, AuthProvider, MainLayout } from '@components';
-import { Acts, CreateAct, Login, Test } from '@pages';
+import { Acts, CreateAct, Login, ReadAct, Test, UpdateAct } from '@pages';
 
 export const router = createBrowserRouter([
   {
@@ -25,11 +25,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.ACTS.children.READ_ACT.path,
-            element: <>Read</>,
+            element: <ReadAct />,
           },
           {
             path: ROUTES.ACTS.children.UPDATE_ACT.path,
-            element: <>Edit</>,
+            element: <UpdateAct />,
           },
         ],
       },

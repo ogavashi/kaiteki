@@ -22,6 +22,7 @@ export const Form = ({ formSchema, data, handleChange, isLoading, errors }) => {
               id={id}
               {...props}
               data={data}
+              value={data[id]}
               errors={errors}
               onChange={handleChange}
               disabled={isLoading}

@@ -30,7 +30,8 @@ export function Date({
     if (defaultValue && !data[id]) {
       onChange(id, defaultValue, fieldKey);
     }
-  }, [id, fieldProps.defaultValue, defaultValue, data, onChange, fieldKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id, fieldProps.defaultValue, defaultValue, fieldKey]);
 
   return (
     <Form.Item help={errors[id]} validateStatus={errors[id] && 'error'} style={{ marginBottom: 0 }}>

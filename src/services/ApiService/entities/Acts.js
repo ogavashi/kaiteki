@@ -111,6 +111,20 @@ export class Acts extends Base {
     return result;
   };
 
+  readById = async (params) => {
+    const result = await resolveWithDelay(MOCK_DATA);
+
+    const id = params?.id;
+
+    if (id) {
+      const record = result.find(({ id: localId }) => localId === +id);
+
+      return record;
+    }
+
+    return null;
+  };
+
   delete = async (params) => {
     console.log(params);
     await resolveWithDelay();
