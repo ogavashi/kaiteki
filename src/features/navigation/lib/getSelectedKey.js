@@ -1,13 +1,13 @@
-export const getSelectedKey = (routes, pathname) => {
+export const getSelectedKey = (routes, pathname, isFirst = true) => {
   for (const key in routes) {
     const route = routes[key];
 
     if (helperCheck(route.path, pathname)) {
-      return route.path;
+      return isFirst ? route.path : route;
     }
 
     if (route.children) {
-      const childRoute = getSelectedKey(route.children, pathname);
+      const childRoute = getSelectedKey(route.children, pathname, false);
 
       if (childRoute) {
         return childRoute.visible ? childRoute.path : route.path;

@@ -1,21 +1,31 @@
-// [
-//   {
-//       "_id": "65dd8f48cdeb4e07d043bdc0",
-//       "make": "biba222",
-//       "brand": "boba",
-//       "weight": 10020,
-//       "fuelCosts": 3000,
-//       "gasolineTankCapacity": 5.3,
-//       "__v": 0
-//   }
-// ]
+// {
+//   "_id": "65e62af35dbc87dabc49afbc",
+//   "make": "biba222",
+//   "carModel": "boba22222",
+//   "weight": 10020,
+//   "fuelCosts": 300,
+//   "gasolineTankCapacity": 10.3,
+//   "trackNumber": "AO1234VC",
+//   "__v": 0
+// },
 
 export const tableSchema = [
   {
     title: 'Марка',
-    dataIndex: 'brand',
+    dataIndex: 'make',
     width: '5%',
     sorter: true,
+  },
+  {
+    title: 'Модель',
+    dataIndex: 'carModel',
+    width: '5%',
+    sorter: true,
+  },
+  {
+    title: 'Номер',
+    dataIndex: 'trackNumber',
+    width: '5%',
   },
   {
     title: 'Вага',
@@ -27,9 +37,13 @@ export const tableSchema = [
   {
     title: 'Витрати палива',
     dataIndex: 'fuelCosts',
+    render: (fuelCosts) => `${fuelCosts} на 100 км`,
+    sorter: true,
   },
   {
     title: `Об'єм баку`,
     dataIndex: 'gasolineTankCapacity',
+    render: (gasolineTankCapacity) => `${gasolineTankCapacity} л`,
+    sorter: true,
   },
 ];

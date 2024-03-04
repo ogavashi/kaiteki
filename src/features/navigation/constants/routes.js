@@ -1,7 +1,16 @@
 export const ROUTES = {
   LOGIN: { path: '/login', protected: false, visible: false, label: 'Login' },
   HOME: { path: '/', protected: true, visible: true, label: 'Головна' },
-  TRUCKS: { path: '/trucks', protected: true, visible: true, label: 'Автопарк' },
+  VEHICLES: {
+    path: '/vehicles',
+    protected: true,
+    visible: true,
+    label: 'Автопарк',
+    children: {
+      TRUCKS: { path: '/vehicles/trucks', protected: true, visible: true, label: 'Тягачі' },
+      TRAILERS: { path: '/vehicles/trailers', protected: true, visible: true, label: 'Причепи' },
+    },
+  },
   ACTS: {
     path: '/acts',
     protected: true,

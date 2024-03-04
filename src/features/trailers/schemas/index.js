@@ -1,0 +1,1 @@
+export { tableSchema } from './tableSchema';

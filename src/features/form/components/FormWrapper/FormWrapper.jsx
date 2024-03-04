@@ -9,7 +9,7 @@ import { Empty, Spin } from 'antd';
 export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema, notify }) => {
   const { id } = useParams();
 
-  const [data, setData] = useState();
+  const [data, setData] = useState({});
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -25,7 +25,9 @@ export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema,
     try {
       setIsFetching(true);
       const data = await apiById?.({ id });
-      setData(data);
+      if (data) {
+        setData(data);
+      }
     } catch (error) {
       notify({
         type: 'error',
@@ -45,7 +47,7 @@ export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema,
     if (isFetching) {
       return <Spin />;
     }
-    if (!data && !isFetching) {
+    if (id && !Object.keys(data).length && !isFetching) {
       return <Empty />;
     }
 
@@ -58,7 +60,7 @@ export const FormWrapper = WithNotification(({ api, apiById, schema, formSchema,
         errors={errors}
       />
     );
-  }, [data, errors, formSchema, handleChange, isFetching, isLoading]);
+  }, [data, errors, formSchema, handleChange, id, isFetching, isLoading]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
