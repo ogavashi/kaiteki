@@ -33,7 +33,7 @@ export const ActionPanel = ({ scheme, selectedRows, handleRefresh }) => {
 };
 
 ActionPanel.propTypes = {
-  selectedRows: PropTypes.arrayOf(PropTypes.number),
+  selectedRows: PropTypes.arrayOf(PropTypes.string),
   scheme: PropTypes.shape({
     actions: PropTypes.array,
     filters: PropTypes.array,

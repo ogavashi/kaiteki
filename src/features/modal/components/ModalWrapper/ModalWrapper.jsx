@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { Modal } from '../Modal';
 import { ModalButton } from '../ModalButton';
 
-export const ModalWrapper = ({ mode, api, isDisabled, handleRefresh }) => {
+export const ModalWrapper = ({ mode, selectedRows, api, isDisabled, handleRefresh }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseModal = useCallback(() => {
@@ -18,6 +18,7 @@ export const ModalWrapper = ({ mode, api, isDisabled, handleRefresh }) => {
     <>
       <ModalButton mode={mode} handleOpenModal={handleOpenModal} isDisabled={isDisabled} />
       <Modal
+        selectedRows={selectedRows}
         isOpen={isOpen}
         handleClose={handleCloseModal}
         mode={mode}
@@ -33,4 +34,5 @@ ModalWrapper.propTypes = {
   api: PropTypes.func,
   isDisabled: PropTypes.bool,
   handleRefresh: PropTypes.func,
+  selectedRows: PropTypes.arrayOf(PropTypes.string),
 };

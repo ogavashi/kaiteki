@@ -16,7 +16,7 @@ const modalTitles = {
 };
 
 export const Modal = WithNotification(
-  ({ isOpen, handleClose, mode, api, handleRefresh, notify }) => {
+  ({ isOpen, handleClose, mode, api, handleRefresh, notify, selectedRows }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCancel = useCallback(() => {
@@ -26,7 +26,9 @@ export const Modal = WithNotification(
     const handleSubmit = useCallback(async () => {
       try {
         setIsLoading(true);
-        await api();
+
+        mode === 'delete' ? api({ ids: selectedRows }) : await api();
+
         handleRefresh();
         handleClose();
         notify({
@@ -43,7 +45,7 @@ export const Modal = WithNotification(
       } finally {
         setIsLoading(false);
       }
-    }, [api, handleClose, handleRefresh, notify]);
+    }, [api, handleClose, handleRefresh, mode, notify, selectedRows]);
 
     const okButtonProps = useMemo(
       () => ({
@@ -82,4 +84,5 @@ Modal.propTypes = {
   mode: PropTypes.string,
   api: PropTypes.func,
   handleRefresh: PropTypes.func,
+  selectedRows: PropTypes.arrayOf(PropTypes.string),
 };

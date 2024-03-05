@@ -23,7 +23,7 @@ export function Read({ selectedRows, destination }) {
 
 Read.propTypes = {
   destination: PropTypes.string,
-  selectedRows: PropTypes.arrayOf(PropTypes.number),
+  selectedRows: PropTypes.arrayOf(PropTypes.string),
   type: PropTypes.string,
   mode: PropTypes.string,
   api: PropTypes.func,

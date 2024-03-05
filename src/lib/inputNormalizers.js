@@ -20,4 +20,5 @@ export const INPUT_NORMALIZERS = {
 
     return selectedValues;
   },
+  selectValue: ({ values }) => values,
 };

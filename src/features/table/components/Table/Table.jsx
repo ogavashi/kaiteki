@@ -11,7 +11,7 @@ export const Table = ({
   shouldRefresh,
   handleRefresh,
 }) => {
-  const { data, isLoading, handleTableChange, page, count, tableColumns } = useTable(
+  const { data, isLoading, handleTableChange, page, size, tableColumns } = useTable(
     api,
     shouldRefresh,
     handleRefresh,
@@ -29,11 +29,11 @@ export const Table = ({
       defaultFilteredValue={['number']}
       defaultSortOrder='asc'
       pagination={{
-        pageSizeOptions: [5, 10, 20],
+        pageSizeOptions: [1, 5, 10, 20],
         position: ['bottomCenter'],
         showSizeChanger: true,
         current: page,
-        pageSize: count,
+        pageSize: size,
         total: data?.meta?.total,
       }}
       onChange={handleTableChange}

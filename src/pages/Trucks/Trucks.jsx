@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-import dayjs from 'dayjs';
 import { PAGE_KEYS } from '@constants';
 import { ApiService } from '@services';
 import { tableSchema } from '@features/trucks';
@@ -49,39 +48,24 @@ export function Trucks() {
           type: 'modal',
           mode: 'delete',
           component: ActionButtons.Delete,
-          api: ApiService[PAGE_KEYS.ACTS].delete,
+          api: ApiService[PAGE_KEYS.TRUCKS].deleteMany,
         },
       ],
       filters: [
         {
-          id: 'dateFrom',
-          label: 'Від',
-          component: Inputs.Date,
-          fieldProps: {
-            defaultValue: dayjs().startOf('month'),
-          },
+          id: 'trackNumber',
+          label: 'Номер',
+          component: Inputs.Input,
+          shouldDebounce: true,
         },
         {
-          id: 'dateTo',
-          label: 'До',
-          component: Inputs.Date,
-          fieldProps: {
-            defaultValue: dayjs(),
-          },
-        },
-        {
-          id: 'company',
-          label: 'Компанія',
+          id: 'make',
+          label: 'Марка',
           component: Inputs.Select,
           fieldProps: {
-            api: ApiService[PAGE_KEYS.COMPANIES].read,
-            apiById: ApiService[PAGE_KEYS.COMPANIES].readById,
-            queryKey: 'company',
-            includeAllOption: true,
-            mode: 'multiple',
-            style: { width: '15rem' },
-            selectApiRecord: (record) => ({ value: record.id, label: record.companyName }),
-            normalizer: INPUT_NORMALIZERS.selectAll,
+            api: ApiService[PAGE_KEYS.TRUCKS].makes,
+            normalizer: INPUT_NORMALIZERS.selectValue,
+            selectApiRecord: (record) => ({ value: record, label: record }),
           },
         },
       ],

@@ -23,5 +23,5 @@ export function Update({ selectedRows, destination }) {
 
 Update.propTypes = {
   destination: PropTypes.string,
-  selectedRows: PropTypes.arrayOf(PropTypes.number),
+  selectedRows: PropTypes.arrayOf(PropTypes.string),
 };

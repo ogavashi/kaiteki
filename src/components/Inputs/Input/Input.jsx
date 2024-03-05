@@ -1,6 +1,7 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input as AInput, Form, InputNumber } from 'antd';
+import { useDebounce } from '@hooks';
 
 const DEFAULT_ROWS = 4;
 
@@ -10,6 +11,7 @@ export function Input({
   rows,
   disabled,
   fieldProps,
+  shouldDebounce,
   onChange,
   onBlur,
   value,
@@ -18,11 +20,17 @@ export function Input({
 }) {
   const { type } = fieldProps;
 
+  const [localValue, setLocalValue] = useState();
+  const debounced = useDebounce(localValue);
+
   const handleChange = useCallback(
     (event) => {
+      if (!event) {
+        return;
+      }
+
       if (type === 'number') {
         onChange(id, event, fieldKey);
-
         return;
       }
 
@@ -31,10 +39,24 @@ export function Input({
     [fieldKey, id, onChange, type]
   );
 
+  const handleCustomChange = useCallback(
+    (event) => {
+      shouldDebounce ? setLocalValue(event) : handleChange(event);
+    },
+
+    [handleChange, shouldDebounce]
+  );
+
+  useEffect(() => {
+    if (shouldDebounce) {
+      handleChange(debounced);
+    }
+  }, [debounced, handleChange, shouldDebounce]);
+
   function renderInput() {
     const inputProps = {
       disabled,
-      onChange: handleChange,
+      onChange: handleCustomChange,
       onBlur,
       value,
       placeholder: placeholder || 'Введіть дані',
@@ -68,6 +90,7 @@ Input.propTypes = {
   disabled: PropTypes.bool,
   fieldProps: PropTypes.object,
   onChange: PropTypes.func.isRequired,
+  shouldDebounce: PropTypes.bool,
   onBlur: PropTypes.func,
   data: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

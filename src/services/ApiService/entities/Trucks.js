@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import { Base } from '.';
 
 export class Trucks extends Base {
@@ -8,5 +9,19 @@ export class Trucks extends Base {
     console.log(result);
 
     return result;
+  };
+
+  makes = async () => {
+    const result = await this.apiClient.get('track/make-all');
+
+    return result;
+  };
+
+  deleteMany = async ({ ids }) => {
+    const query = queryString.stringify({ ids });
+
+    console.log(query);
+
+    await this.apiClient.delete(`track/?${query}`);
   };
 }

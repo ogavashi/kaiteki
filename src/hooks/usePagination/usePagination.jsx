@@ -6,22 +6,22 @@ export function usePagination(defaultPage = 1, defaultCount = 5) {
   const [query, setQuery] = useQuery();
 
   const handleChangePage = useCallback(
-    (page, count) => {
-      setQuery({ ...query, page, count });
+    (page, size) => {
+      setQuery({ ...query, page, size });
     },
     [query, setQuery]
   );
 
   const handleChangeCount = useCallback(
-    (page, count) => {
-      setQuery({ ...query, page, count });
+    (page, size) => {
+      setQuery({ ...query, page, size });
     },
     [query, setQuery]
   );
 
   return {
     page: +query.page || defaultPage,
-    count: +query.count || defaultCount,
+    size: +query.size || defaultCount,
     handleChangePage,
     handleChangeCount,
   };

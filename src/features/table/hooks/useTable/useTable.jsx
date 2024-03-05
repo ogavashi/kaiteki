@@ -8,7 +8,7 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
   const isFirstRender = useIsFirstRender();
 
   const [query, setQuery] = useQuery();
-  const { count, page } = usePagination();
+  const { size, page } = usePagination();
 
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,11 +26,11 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
     () => ({
       ...params,
       ...query,
-      count,
+      size,
       page,
       total: true,
     }),
-    [count, page, params, query]
+    [size, page, params, query]
   );
 
   const fetchData = useCallback(
@@ -53,11 +53,11 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
 
   useEffect(() => {
     if (isFirstRender) {
-      setQuery({ page, count });
+      setQuery({ page, size });
       return;
     }
     fetchData(fetchParams);
-  }, [count, fetchData, fetchParams, isFirstRender, page, setQuery]);
+  }, [size, fetchData, fetchParams, isFirstRender, page, setQuery]);
 
   useEffect(() => {
     if (shouldRefresh) {
@@ -68,7 +68,7 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
 
   const handleTableChange = useCallback(
     (pagination, _filters, sorter) => {
-      const { current: page, pageSize: count } = pagination;
+      const { current: page, pageSize: size } = pagination;
 
       const { field, order } = sorter;
 
@@ -81,12 +81,12 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
 
       updatedQuery = isSortingChanged
         ? { ...updatedQuery, page: 1 }
-        : { ...updatedQuery, page, count };
+        : { ...updatedQuery, page, size };
 
       setQuery({ ...query, ...updatedQuery });
     },
     [query, setQuery]
   );
 
-  return { data, isLoading, handleTableChange, page, count, tableColumns };
+  return { data, isLoading, handleTableChange, page, size, tableColumns };
 }
