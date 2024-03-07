@@ -11,6 +11,12 @@ export class Trucks extends Base {
     return result;
   };
 
+  readById = async ({ id }) => {
+    const result = await this.apiClient.get(`track/${id}`);
+
+    return result;
+  };
+
   makes = async () => {
     const result = await this.apiClient.get('track/make-all');
 

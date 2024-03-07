@@ -1,0 +1,1 @@
+export { ReadTruck } from './ReadTruck';

@@ -1,31 +1,29 @@
-export const getSelectedKey = (routes, pathname, isFirst = true) => {
-  for (const key in routes) {
-    const route = routes[key];
-
-    if (helperCheck(route.path, pathname)) {
-      return isFirst ? route.path : route;
-    }
-
-    if (route.children) {
-      const childRoute = getSelectedKey(route.children, pathname, false);
-
-      if (childRoute) {
-        return childRoute.visible ? childRoute.path : route.path;
-      }
-    }
-  }
-
-  return null;
+export const getSelectedKey = (routes, path) => {
+  const segments = path.split('/').filter((segment) => segment !== '');
+  const visiblePath = findVisiblePath(routes, segments);
+  return visiblePath;
 };
 
-const helperCheck = (lhs, rhs) => {
-  let routePath = lhs;
-  let pathName = rhs;
-
-  if (lhs.includes(':')) {
-    routePath = lhs.slice(0, rhs.lastIndexOf('/'));
-    pathName = rhs.slice(0, rhs.lastIndexOf('/'));
+const findVisiblePath = (routes, segments) => {
+  if (segments.length === 0) {
+    const homeRoute = routes.HOME;
+    return homeRoute && homeRoute.visible ? '/' : null;
   }
 
-  return routePath === pathName;
+  const pathToMatch = `/${segments.join('/')}`;
+  const route = findRoute(routes, pathToMatch);
+
+  return route && route.visible ? route.path : findVisiblePath(routes, segments.slice(0, -1));
+};
+
+const findRoute = (routes, path) => {
+  for (const key in routes) {
+    const { path: routePath, children } = routes[key];
+    if (routePath === path) return routes[key];
+    if (children) {
+      const childRoute = findRoute(children, path);
+      if (childRoute) return childRoute;
+    }
+  }
+  return null;
 };

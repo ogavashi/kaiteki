@@ -1,7 +1,17 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { AuthLayout, AuthProvider, MainLayout } from '@components';
-import { Acts, CreateAct, Login, ReadAct, Test, Trailers, Trucks, UpdateAct } from '@pages';
+import {
+  Acts,
+  CreateAct,
+  Login,
+  ReadAct,
+  ReadTruck,
+  Test,
+  Trailers,
+  Trucks,
+  UpdateAct,
+} from '@pages';
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +31,10 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.VEHICLES.children.TRUCKS.path,
                 element: <Trucks />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRUCKS.children.READ_ACT.path,
+                element: <ReadTruck />,
               },
               {
                 path: ROUTES.VEHICLES.children.TRAILERS.path,

@@ -17,6 +17,8 @@ export const Descriptions = WithNotification(({ api, normalizer, notify, title }
   const goBack = useCallback(() => {
     const target = findParentRoute(pathname);
 
+    console.log(target);
+
     if (target) {
       navigate(target.path);
     }

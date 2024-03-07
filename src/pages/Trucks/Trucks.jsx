@@ -36,7 +36,7 @@ export function Trucks() {
         {
           id: 'read',
           component: ActionButtons.Read,
-          destination: ROUTES.ACTS.children.READ_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRUCKS.children.READ_ACT.path,
         },
         {
           id: 'update',

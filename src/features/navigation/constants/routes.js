@@ -7,7 +7,20 @@ export const ROUTES = {
     visible: true,
     label: 'Автопарк',
     children: {
-      TRUCKS: { path: '/vehicles/trucks', protected: true, visible: true, label: 'Тягачі' },
+      TRUCKS: {
+        path: '/vehicles/trucks',
+        protected: true,
+        visible: true,
+        label: 'Тягачі',
+        children: {
+          READ_ACT: {
+            path: '/vehicles/trucks/:id',
+            protected: true,
+            visible: false,
+            label: 'Переглянути',
+          },
+        },
+      },
       TRAILERS: { path: '/vehicles/trailers', protected: true, visible: true, label: 'Причепи' },
     },
   },
