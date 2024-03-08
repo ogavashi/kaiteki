@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState } from 'react';
-import dayjs from 'dayjs';
 import { PAGE_KEYS } from '@constants';
 import { ApiService } from '@services';
 import { tableSchema } from '@features/trailers';
@@ -16,7 +15,7 @@ export function Trailers() {
     setShouldRefresh(value);
   }, []);
 
-  const api = useMemo(() => ApiService[PAGE_KEYS.TRUCKS].read, []);
+  const api = useMemo(() => ApiService[PAGE_KEYS.TRAILERS].read, []);
 
   const { rowSelection, handleAddOnRow } = useSelectedColumns([
     'all',
@@ -54,34 +53,31 @@ export function Trailers() {
       ],
       filters: [
         {
-          id: 'dateFrom',
-          label: 'Від',
-          component: Inputs.Date,
-          fieldProps: {
-            defaultValue: dayjs().startOf('month'),
-          },
+          id: 'trailerNumber',
+          label: 'Номер',
+          component: Inputs.Input,
+          shouldDebounce: true,
         },
         {
-          id: 'dateTo',
-          label: 'До',
-          component: Inputs.Date,
+          id: 'weight',
+          component: Inputs.Input,
           fieldProps: {
-            defaultValue: dayjs(),
+            type: 'number',
+            min: 1,
+            max: 1000000,
+            prefix: 'КГ',
           },
+          label: 'Вага',
+          shouldDebounce: true,
         },
         {
-          id: 'company',
-          label: 'Компанія',
+          id: 'type',
+          label: 'Тип',
           component: Inputs.Select,
           fieldProps: {
-            api: ApiService[PAGE_KEYS.COMPANIES].read,
-            apiById: ApiService[PAGE_KEYS.COMPANIES].readById,
-            queryKey: 'company',
-            includeAllOption: true,
-            mode: 'multiple',
-            style: { width: '15rem' },
-            selectApiRecord: (record) => ({ value: record.id, label: record.companyName }),
-            normalizer: INPUT_NORMALIZERS.selectAll,
+            api: ApiService[PAGE_KEYS.TRAILERS].types,
+            normalizer: INPUT_NORMALIZERS.selectValue,
+            selectApiRecord: (record) => ({ value: record, label: record }),
           },
         },
       ],

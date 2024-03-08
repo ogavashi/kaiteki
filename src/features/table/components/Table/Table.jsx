@@ -34,7 +34,7 @@ export const Table = ({
         showSizeChanger: true,
         current: page,
         pageSize: size,
-        total: data?.meta?.total,
+        total: data?.meta?.itemCount,
       }}
       onChange={handleTableChange}
       rowKey={(record) => record.id}

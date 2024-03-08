@@ -25,16 +25,12 @@ export function Input({
 
   const handleChange = useCallback(
     (event) => {
-      if (!event) {
-        return;
-      }
-
       if (type === 'number') {
         onChange(id, event, fieldKey);
         return;
       }
 
-      onChange(id, event.target.value, fieldKey);
+      onChange(id, event?.target?.value, fieldKey);
     },
     [fieldKey, id, onChange, type]
   );

@@ -3,4 +3,5 @@ export const PAGE_KEYS = {
   ACTS: 'acts',
   COMPANIES: 'companies',
   TRUCKS: 'trucks',
+  TRAILERS: 'trailers',
 };

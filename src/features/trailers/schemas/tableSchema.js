@@ -4,18 +4,18 @@ export const tableSchema = [
     dataIndex: 'weight',
     sorter: true,
     render: (weight) => `${weight} кг`,
-    width: '15%',
+    width: '30%',
   },
   {
     title: 'Тип',
     dataIndex: 'type',
-    width: '5%',
+    width: '30%',
     sorter: true,
   },
   {
     title: 'Номер',
     dataIndex: 'trailerNumber',
-    width: '5%',
+    width: '40%',
     sorter: true,
   },
 ];
