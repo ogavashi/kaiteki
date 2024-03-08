@@ -19,6 +19,12 @@ export const ROUTES = {
             visible: false,
             label: 'Переглянути',
           },
+          NEW_ACT: {
+            path: '/vehicles/trucks/create',
+            protected: true,
+            visible: false,
+            label: 'Переглянути',
+          },
         },
       },
       TRAILERS: { path: '/vehicles/trailers', protected: true, visible: true, label: 'Причепи' },

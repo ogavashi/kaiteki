@@ -31,7 +31,7 @@ export function Trucks() {
         {
           id: 'create',
           component: ActionButtons.Create,
-          destination: ROUTES.ACTS.children.NEW_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRUCKS.children.NEW_ACT.path,
         },
         {
           id: 'read',

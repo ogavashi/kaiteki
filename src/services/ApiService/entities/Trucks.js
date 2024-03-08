@@ -3,10 +3,7 @@ import { Base } from '.';
 
 export class Trucks extends Base {
   read = async (params) => {
-    console.log(params);
     const result = await this.apiClient.get('track', { query: { ...params } });
-
-    console.log(result);
 
     return result;
   };
@@ -17,6 +14,10 @@ export class Trucks extends Base {
     return result;
   };
 
+  create = async (data) => {
+    await this.apiClient.post('track', { body: { ...data } });
+  };
+
   makes = async () => {
     const result = await this.apiClient.get('track/make-all');
 
@@ -25,8 +26,6 @@ export class Trucks extends Base {
 
   deleteMany = async ({ ids }) => {
     const query = queryString.stringify({ ids });
-
-    console.log(query);
 
     await this.apiClient.delete(`track/?${query}`);
   };

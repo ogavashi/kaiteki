@@ -37,6 +37,11 @@ export const ActionPanel = WithNotification(
 
         handleGoBack();
       } catch (error) {
+        const serverErrors = error?.serverValidation;
+
+        if (serverErrors) {
+          setErrors(serverErrors);
+        }
         notify({
           type: 'error',
           message: 'Помилка!',

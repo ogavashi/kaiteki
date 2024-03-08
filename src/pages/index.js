@@ -7,3 +7,4 @@ export { Acts } from './Acts';
 export { Trucks } from './Trucks';
 export { Trailers } from './Trailers';
 export { ReadTruck } from './ReadTruck';
+export { CreateTruck } from './CreateTruck';

@@ -1,0 +1,1 @@
+export { CreateTruck } from './CreateTruck';

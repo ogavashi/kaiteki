@@ -4,6 +4,7 @@ import { AuthLayout, AuthProvider, MainLayout } from '@components';
 import {
   Acts,
   CreateAct,
+  CreateTruck,
   Login,
   ReadAct,
   ReadTruck,
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
               {
                 path: ROUTES.VEHICLES.children.TRUCKS.children.READ_ACT.path,
                 element: <ReadTruck />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRUCKS.children.NEW_ACT.path,
+                element: <CreateTruck />,
               },
               {
                 path: ROUTES.VEHICLES.children.TRAILERS.path,
