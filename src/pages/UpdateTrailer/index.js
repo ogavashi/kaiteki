@@ -1,0 +1,1 @@
+export { UpdateTrailer } from './UpdateTrailer';

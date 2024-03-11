@@ -1,18 +1,20 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useEffect, useMemo, useState } from 'react';
-import { Form } from 'antd';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Button, Divider, Form, Input, Space } from 'antd';
 import PropTypes from 'prop-types';
 import { Select as ASelect, Spin } from 'antd';
 import { WithNotification } from '@features/notification';
 import { useSelectHandlers } from './useSelectHandlers';
+import { PlusOutlined } from '@ant-design/icons';
 
 export const Select = WithNotification(
   ({ id, data, fieldProps, disabled, placeholder, errors, onChange, notify }) => {
     const {
       options: rawOptions,
       includeAllOption,
+      addable,
       api,
       apiById,
       queryKey,
@@ -42,6 +44,8 @@ export const Select = WithNotification(
       }
     }, [id, fieldProps?.defaultValue]);
 
+    const inputRef = useRef(null);
+
     const [options, setOptions] = useState(defaultOptions);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -68,6 +72,30 @@ export const Select = WithNotification(
       }
     }, [value]);
 
+    const [name, setName] = useState('');
+
+    const onNameChange = useCallback((event) => {
+      setName(event.target.value);
+    }, []);
+
+    const addItem = useCallback(
+      (e) => {
+        e.preventDefault();
+        const isPresent = options.find(({ value: optionValue }) => optionValue === name);
+
+        if (isPresent || !name) {
+          return;
+        }
+
+        setOptions([...options, { value: name, label: name }]);
+        setName('');
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 0);
+      },
+      [options, name]
+    );
+
     return (
       <Form.Item
         help={errors?.[id]}
@@ -87,9 +115,39 @@ export const Select = WithNotification(
           value={selectValue}
           filterOption={false}
           onChange={handleChange}
-          onClick={handleClick}
+          onFocus={handleClick}
+          // onClick={handleClick}
           loading={isLoading}
           {...selectProps}
+          dropdownRender={
+            addable &&
+            ((menu) => (
+              <>
+                {menu}
+                <Divider
+                  style={{
+                    margin: '8px 0',
+                  }}
+                />
+                <Space
+                  style={{
+                    padding: '0 8px 4px',
+                  }}
+                >
+                  <Input
+                    placeholder='Введіть новий запис...'
+                    ref={inputRef}
+                    value={name}
+                    onChange={onNameChange}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  />
+                  <Button type='text' icon={<PlusOutlined />} onClick={addItem}>
+                    Додати запис
+                  </Button>
+                </Space>
+              </>
+            ))
+          }
         />
       </Form.Item>
     );

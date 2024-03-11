@@ -31,17 +31,17 @@ export function Trucks() {
         {
           id: 'create',
           component: ActionButtons.Create,
-          destination: ROUTES.VEHICLES.children.TRUCKS.children.NEW_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRUCKS.children.NEW_TRUCK.path,
         },
         {
           id: 'read',
           component: ActionButtons.Read,
-          destination: ROUTES.VEHICLES.children.TRUCKS.children.READ_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRUCKS.children.READ_TRUCK.path,
         },
         {
           id: 'update',
           component: ActionButtons.Update,
-          destination: ROUTES.ACTS.children.UPDATE_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRUCKS.children.UPDATE_TRUCK.path,
         },
         {
           id: 'delete',

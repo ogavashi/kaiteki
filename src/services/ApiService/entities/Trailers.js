@@ -18,6 +18,10 @@ export class Trailers extends Base {
     await this.apiClient.post('trailer', { body: { ...data } });
   };
 
+  update = async (data) => {
+    await this.apiClient.patch(`trailer/${data._id}`, { body: { ...data } });
+  };
+
   types = async () => {
     const result = await this.apiClient.get('trailer/types-all');
 

@@ -8,3 +8,7 @@ export { Trucks } from './Trucks';
 export { Trailers } from './Trailers';
 export { ReadTruck } from './ReadTruck';
 export { CreateTruck } from './CreateTruck';
+export { UpdateTruck } from './UpdateTruck';
+export { ReadTrailer } from './ReadTrailer';
+export { CreateTrailer } from './CreateTrailer';
+export { UpdateTrailer } from './UpdateTrailer';

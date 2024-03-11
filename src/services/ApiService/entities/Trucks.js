@@ -18,6 +18,10 @@ export class Trucks extends Base {
     await this.apiClient.post('track', { body: { ...data } });
   };
 
+  update = async (data) => {
+    await this.apiClient.patch(`track/${data._id}`, { body: { ...data } });
+  };
+
   makes = async () => {
     const result = await this.apiClient.get('track/make-all');
 

@@ -1,0 +1,1 @@
+export { UpdateTruck } from './UpdateTruck';

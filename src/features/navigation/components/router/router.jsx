@@ -4,14 +4,18 @@ import { AuthLayout, AuthProvider, MainLayout } from '@components';
 import {
   Acts,
   CreateAct,
+  CreateTrailer,
   CreateTruck,
   Login,
   ReadAct,
+  ReadTrailer,
   ReadTruck,
   Test,
   Trailers,
   Trucks,
   UpdateAct,
+  UpdateTrailer,
+  UpdateTruck,
 } from '@pages';
 
 export const router = createBrowserRouter([
@@ -34,16 +38,32 @@ export const router = createBrowserRouter([
                 element: <Trucks />,
               },
               {
-                path: ROUTES.VEHICLES.children.TRUCKS.children.READ_ACT.path,
+                path: ROUTES.VEHICLES.children.TRUCKS.children.READ_TRUCK.path,
                 element: <ReadTruck />,
               },
               {
-                path: ROUTES.VEHICLES.children.TRUCKS.children.NEW_ACT.path,
+                path: ROUTES.VEHICLES.children.TRUCKS.children.UPDATE_TRUCK.path,
+                element: <UpdateTruck />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRUCKS.children.NEW_TRUCK.path,
                 element: <CreateTruck />,
               },
               {
                 path: ROUTES.VEHICLES.children.TRAILERS.path,
                 element: <Trailers />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRAILERS.children.READ_TRAILER.path,
+                element: <ReadTrailer />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRAILERS.children.NEW_TRAILER.path,
+                element: <CreateTrailer />,
+              },
+              {
+                path: ROUTES.VEHICLES.children.TRAILERS.children.UPDATE_TRAILER.path,
+                element: <UpdateTrailer />,
               },
             ],
           },

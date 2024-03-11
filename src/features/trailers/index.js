@@ -1,1 +1,2 @@
-export { tableSchema } from './schemas';
+export { tableSchema, trailersSchema } from './schemas';
+export { readNormalizer } from './lib';

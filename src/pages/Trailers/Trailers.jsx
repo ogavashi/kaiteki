@@ -31,24 +31,24 @@ export function Trailers() {
         {
           id: 'create',
           component: ActionButtons.Create,
-          destination: ROUTES.ACTS.children.NEW_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRAILERS.children.NEW_TRAILER.path,
         },
         {
           id: 'read',
           component: ActionButtons.Read,
-          destination: ROUTES.ACTS.children.READ_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRAILERS.children.READ_TRAILER.path,
         },
         {
           id: 'update',
           component: ActionButtons.Update,
-          destination: ROUTES.ACTS.children.UPDATE_ACT.path,
+          destination: ROUTES.VEHICLES.children.TRAILERS.children.UPDATE_TRAILER.path,
         },
         {
           id: 'delete',
           type: 'modal',
           mode: 'delete',
           component: ActionButtons.Delete,
-          api: ApiService[PAGE_KEYS.ACTS].delete,
+          api: ApiService[PAGE_KEYS.TRAILERS].deleteMany,
         },
       ],
       filters: [

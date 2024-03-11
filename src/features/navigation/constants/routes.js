@@ -13,21 +13,52 @@ export const ROUTES = {
         visible: true,
         label: 'Тягачі',
         children: {
-          READ_ACT: {
+          READ_TRUCK: {
             path: '/vehicles/trucks/:id',
             protected: true,
             visible: false,
             label: 'Переглянути',
           },
-          NEW_ACT: {
+          NEW_TRUCK: {
             path: '/vehicles/trucks/create',
+            protected: true,
+            visible: false,
+            label: 'Створити',
+          },
+          UPDATE_TRUCK: {
+            path: '/vehicles/trucks/update/:id',
+            protected: true,
+            visible: false,
+            label: 'Оновити',
+          },
+        },
+      },
+      TRAILERS: {
+        path: '/vehicles/trailers',
+        protected: true,
+        visible: true,
+        label: 'Причепи',
+        children: {
+          READ_TRAILER: {
+            path: '/vehicles/trailers/:id',
             protected: true,
             visible: false,
             label: 'Переглянути',
           },
+          NEW_TRAILER: {
+            path: '/vehicles/trailers/create',
+            protected: true,
+            visible: false,
+            label: 'Створити',
+          },
+          UPDATE_TRAILER: {
+            path: '/vehicles/trailers/update/:id',
+            protected: true,
+            visible: false,
+            label: 'Оновити',
+          },
         },
       },
-      TRAILERS: { path: '/vehicles/trailers', protected: true, visible: true, label: 'Причепи' },
     },
   },
   ACTS: {
