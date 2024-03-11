@@ -2,18 +2,18 @@ import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import { AuthLayout, AuthProvider, MainLayout } from '@components';
 import {
-  Acts,
-  CreateAct,
+  CreateDriver,
   CreateTrailer,
   CreateTruck,
+  Drivers,
   Login,
-  ReadAct,
+  ReadDriver,
   ReadTrailer,
   ReadTruck,
   Test,
   Trailers,
   Trucks,
-  UpdateAct,
+  UpdateDriver,
   UpdateTrailer,
   UpdateTruck,
 } from '@pages';
@@ -68,20 +68,20 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: ROUTES.ACTS.path,
-            element: <Acts />,
+            path: ROUTES.DRIVERS.path,
+            element: <Drivers />,
           },
           {
-            path: ROUTES.ACTS.children.NEW_ACT.path,
-            element: <CreateAct />,
+            path: ROUTES.DRIVERS.children.NEW_DRIVER.path,
+            element: <CreateDriver />,
           },
           {
-            path: ROUTES.ACTS.children.READ_ACT.path,
-            element: <ReadAct />,
+            path: ROUTES.DRIVERS.children.READ_DRIVER.path,
+            element: <ReadDriver />,
           },
           {
-            path: ROUTES.ACTS.children.UPDATE_ACT.path,
-            element: <UpdateAct />,
+            path: ROUTES.DRIVERS.children.UPDATE_DRIVER.path,
+            element: <UpdateDriver />,
           },
         ],
       },

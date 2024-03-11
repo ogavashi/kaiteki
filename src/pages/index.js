@@ -12,3 +12,7 @@ export { UpdateTruck } from './UpdateTruck';
 export { ReadTrailer } from './ReadTrailer';
 export { CreateTrailer } from './CreateTrailer';
 export { UpdateTrailer } from './UpdateTrailer';
+export { Drivers } from './Drivers';
+export { ReadDriver } from './ReadDriver';
+export { CreateDriver } from './CreateDriver';
+export { UpdateDriver } from './UpdateDriver';

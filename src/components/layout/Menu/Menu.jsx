@@ -24,8 +24,6 @@ export const CustomMenu = memo(() => {
 
   const selectedKey = useMemo(() => getSelectedKey(ROUTES, pathname), [pathname]);
 
-  console.log(selectedKey);
-
   return (
     <Menu
       onClick={handleNavigate}

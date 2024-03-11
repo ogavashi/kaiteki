@@ -8,7 +8,6 @@ export function Create({ destination }) {
   const navigate = useNavigate();
 
   const handleClick = useCallback(() => {
-    console.log(destination);
     navigate(destination);
   }, [destination, navigate]);
 
