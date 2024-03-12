@@ -20,3 +20,4 @@ export { Rides } from './Rides';
 export { ReadRide } from './ReadRide';
 export { CreateRide } from './CreateRide';
 export { UpdateRide } from './UpdateRide';
+export { Stats } from './Stats';

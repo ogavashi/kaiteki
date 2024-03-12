@@ -6,4 +6,5 @@ export const PAGE_KEYS = {
   TRAILERS: 'trailers',
   DRIVERS: 'drivers',
   RIDES: 'rides',
+  STATS: 'stats',
 };

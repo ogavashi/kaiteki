@@ -1,6 +1,6 @@
 import { AppConfig, PAGE_KEYS } from '@constants';
 import { ApiClient } from './ApiClient';
-import { Acts, Companies, Drivers, Rides, Test, Trailers, Trucks, User } from './entities';
+import { Acts, Companies, Drivers, Rides, Stats, Test, Trailers, Trucks, User } from './entities';
 
 class ApiService {
   constructor({ apiUrl, token } = {}) {
@@ -17,6 +17,7 @@ class ApiService {
     this[PAGE_KEYS.TRAILERS] = new Trailers({ apiClient });
     this[PAGE_KEYS.DRIVERS] = new Drivers({ apiClient });
     this[PAGE_KEYS.RIDES] = new Rides({ apiClient });
+    this[PAGE_KEYS.STATS] = new Stats({ apiClient });
     this.user = new User({ apiClient });
   }
 }

@@ -13,7 +13,7 @@ import {
   ReadTrailer,
   ReadTruck,
   Rides,
-  Test,
+  Stats,
   Trailers,
   Trucks,
   UpdateDriver,
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.HOME.path,
-            element: <Test />,
+            element: <Stats />,
           },
           {
             path: ROUTES.VEHICLES.path,
