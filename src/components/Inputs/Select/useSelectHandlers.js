@@ -26,7 +26,7 @@ export function useSelectHandlers({
 
         const response = await api(params);
 
-        const newOptions = response.map(
+        const newOptions = (response?.data || response).map(
           (record) => selectApiRecord?.(record) || { value: record.id, label: record.name }
         );
 
@@ -48,12 +48,10 @@ export function useSelectHandlers({
     try {
       setIsLoading(true);
       const response = await value.api({ id: value.id });
-      const newOptions = response.map(
-        (record) => selectApiRecord?.(record) || { value: record.id, label: record.name }
-      );
-      setOptions(newOptions);
-      const newValues = newOptions.map((record) => record.value);
-      onChange(id, newValues);
+      const newOption = selectApiRecord?.(response) || { value: response.id, label: response.name };
+      setOptions([newOption]);
+      const newValue = newOption.value;
+      onChange(id, newValue);
     } catch (error) {
       notify({ type: 'error', message: 'Помилка', description: error.message });
     } finally {

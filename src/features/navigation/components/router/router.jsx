@@ -3,17 +3,21 @@ import { ROUTES } from '../../constants';
 import { AuthLayout, AuthProvider, MainLayout } from '@components';
 import {
   CreateDriver,
+  CreateRide,
   CreateTrailer,
   CreateTruck,
   Drivers,
   Login,
   ReadDriver,
+  ReadRide,
   ReadTrailer,
   ReadTruck,
+  Rides,
   Test,
   Trailers,
   Trucks,
   UpdateDriver,
+  UpdateRide,
   UpdateTrailer,
   UpdateTruck,
 } from '@pages';
@@ -82,6 +86,22 @@ export const router = createBrowserRouter([
           {
             path: ROUTES.DRIVERS.children.UPDATE_DRIVER.path,
             element: <UpdateDriver />,
+          },
+          {
+            path: ROUTES.RIDES.path,
+            element: <Rides />,
+          },
+          {
+            path: ROUTES.RIDES.children.NEW_RIDE.path,
+            element: <CreateRide />,
+          },
+          {
+            path: ROUTES.RIDES.children.READ_RIDE.path,
+            element: <ReadRide />,
+          },
+          {
+            path: ROUTES.RIDES.children.UPDATE_RIDE.path,
+            element: <UpdateRide />,
           },
         ],
       },

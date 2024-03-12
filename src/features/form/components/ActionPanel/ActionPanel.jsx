@@ -7,7 +7,17 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const ActionPanel = WithNotification(
-  ({ data, notify, isLoading, setIsLoading, api, validationSchema, setErrors, isFetching }) => {
+  ({
+    data,
+    notify,
+    isLoading,
+    setIsLoading,
+    api,
+    validationSchema,
+    setErrors,
+    isFetching,
+    apiNormalizer,
+  }) => {
     const navigate = useNavigate();
     const { pathname } = location;
 
@@ -23,8 +33,10 @@ export const ActionPanel = WithNotification(
       setErrors({});
       setIsLoading(true);
       try {
+        const normalized = apiNormalizer?.(data) || data;
+
         if (validationSchema) {
-          const validationErrors = validate(validationSchema, data);
+          const validationErrors = validate(validationSchema, normalized);
 
           if (validationErrors) {
             setErrors(validationErrors);
@@ -33,7 +45,7 @@ export const ActionPanel = WithNotification(
           }
         }
 
-        await api(data);
+        await api(normalized);
 
         handleGoBack();
       } catch (error) {
@@ -50,7 +62,7 @@ export const ActionPanel = WithNotification(
       } finally {
         setIsLoading(false);
       }
-    }, [api, data, handleGoBack, notify, setErrors, setIsLoading, validationSchema]);
+    }, [api, apiNormalizer, data, handleGoBack, notify, setErrors, setIsLoading, validationSchema]);
 
     return (
       <div style={{ display: 'flex', gap: '1rem' }}>
@@ -79,4 +91,5 @@ ActionPanel.propTypes = {
   validationSchema: PropTypes.object,
   api: PropTypes.func,
   setErrors: PropTypes.func,
+  apiNormalizer: PropTypes.func,
 };

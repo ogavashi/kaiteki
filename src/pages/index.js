@@ -16,3 +16,7 @@ export { Drivers } from './Drivers';
 export { ReadDriver } from './ReadDriver';
 export { CreateDriver } from './CreateDriver';
 export { UpdateDriver } from './UpdateDriver';
+export { Rides } from './Rides';
+export { ReadRide } from './ReadRide';
+export { CreateRide } from './CreateRide';
+export { UpdateRide } from './UpdateRide';

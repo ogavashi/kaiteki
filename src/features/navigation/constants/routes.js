@@ -27,6 +27,32 @@ export const ROUTES = {
       },
     },
   },
+  RIDES: {
+    path: '/rides',
+    protected: true,
+    visible: true,
+    label: 'Рейси',
+    children: {
+      NEW_RIDE: {
+        path: '/rides/create',
+        protected: true,
+        visible: false,
+        label: 'Створити',
+      },
+      UPDATE_RIDE: {
+        path: '/rides/update/:id',
+        protected: true,
+        visible: false,
+        label: 'Оновити',
+      },
+      READ_RIDE: {
+        path: '/rides/:id',
+        protected: true,
+        visible: false,
+        label: 'Переглянути',
+      },
+    },
+  },
   VEHICLES: {
     path: '/vehicles',
     protected: true,

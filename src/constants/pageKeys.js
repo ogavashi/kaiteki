@@ -5,4 +5,5 @@ export const PAGE_KEYS = {
   TRUCKS: 'trucks',
   TRAILERS: 'trailers',
   DRIVERS: 'drivers',
+  RIDES: 'rides',
 };

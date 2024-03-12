@@ -57,7 +57,8 @@ export function useTable(api, shouldRefresh, handleRefresh, tableSchema, normali
       return;
     }
     fetchData(fetchParams);
-  }, [size, fetchData, fetchParams, isFirstRender, page, setQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [size, fetchData, isFirstRender, page, setQuery]);
 
   useEffect(() => {
     if (shouldRefresh) {

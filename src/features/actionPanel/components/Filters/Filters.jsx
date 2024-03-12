@@ -32,7 +32,11 @@ export const Filters = ({ filters, handleRefresh }) => {
   }, []);
 
   useEffect(() => {
-    setQuery({ ...data, page: 1 });
+    const proper = Object.fromEntries(
+      Object.entries(data).map(([key, value]) => [key, value?.id || value])
+    );
+
+    setQuery({ ...proper, page: 1 });
   }, [data]);
 
   return (

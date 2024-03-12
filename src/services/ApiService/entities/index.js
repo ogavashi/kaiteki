@@ -6,3 +6,4 @@ export { Trucks } from './Trucks';
 export { Companies } from './Companies';
 export { Trailers } from './Trailers';
 export { Drivers } from './Drivers';
+export { Rides } from './Rides';
